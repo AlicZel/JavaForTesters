@@ -2,10 +2,7 @@ package ru.stqa.pft.addressbook;
 
 
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
@@ -13,7 +10,6 @@ import org.testng.annotations.*;
 
 public class GroupCreationTest {
   private WebDriver wd;
-
 
 
   @BeforeMethod(alwaysRun = true)
@@ -39,7 +35,11 @@ public class GroupCreationTest {
     fillGroupForm(new GroupData("test1", "test2", "test3"));
     submitGroupCreation("submit");
     returnToGroupPage("group page");
-    wd.findElement(By.linkText("Logout")).click();
+    logout("Logout");
+  }
+
+  private void logout(String logout) {
+    wd.findElement(By.linkText(logout)).click();
   }
 
   private void returnToGroupPage(String s) {
@@ -69,32 +69,4 @@ public class GroupCreationTest {
     wd.quit();
   }
 
-  private boolean isElementPresent(By by) {
-    try {
-      wd.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      wd.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = wd.switchTo().alert();
-      String alertText = alert.getText();
-
-      return alertText;
-    } finally {
-
-    }
-  }
 }
