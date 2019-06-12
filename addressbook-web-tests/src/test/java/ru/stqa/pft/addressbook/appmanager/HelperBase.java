@@ -27,4 +27,8 @@ public class HelperBase {
   protected void selectOptionFromComboBox(By locator, String option) {
     new Select(wd.findElement(locator)).selectByVisibleText(option);
   }
+
+  public void confirmAlert() {
+    wd.switchTo().alert().accept();
+  }
 }
