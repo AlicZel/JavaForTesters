@@ -19,7 +19,7 @@ public class ContactCreationTest {
   @Test
   public void testContactCreation() throws Exception {
     login();
-    gotoNewContactPage("add new");
+    gotoNewContactPage();
     fillNewContactForm(new ContactData("Alicja", "Katarzyna", "Zeler", "AliZel",
             "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
             "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",
@@ -27,21 +27,17 @@ public class ContactCreationTest {
             "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
             "17", "November", "1986", "d",
             "Piekna 2\nEłk", "508456456", "uwaga"));
-    submitNewContactCreation("//input[@name='submit']");
-    returnToHomePage("home page");
-    logout("Logout");
+    submitNewContactCreation();
+    logout();
   }
 
-  private void logout(String logout) {
-    driver.findElement(By.linkText(logout)).click();
+  private void logout() {
+    driver.findElement(By.linkText("Logout")).click();
   }
 
-  private void returnToHomePage(String s) {
-    driver.findElement(By.linkText(s)).click();
-  }
 
-  private void submitNewContactCreation(String s) {
-    driver.findElement(By.xpath(s)).click();
+  private void submitNewContactCreation() {
+    driver.findElement(By.xpath("//input[@name='submit']")).click();
   }
 
   private void fillNewContactForm(ContactData contactData) {
@@ -78,13 +74,17 @@ public class ContactCreationTest {
     driver.findElement(By.name("notes")).sendKeys(contactData.getNotes());
   }
 
-  private void gotoNewContactPage(String s) {
-    driver.findElement(By.linkText(s)).click();
+  private void gotoNewContactPage() {
+    driver.findElement(By.linkText("add new")).click();
   }
 
   private void login() {
     driver.get("http://localhost:8080/addressbook/");
+    driver.findElement(By.name("user")).click();
+    driver.findElement(By.name("user")).clear();
     driver.findElement(By.name("user")).sendKeys("admin");
+    driver.findElement(By.name("pass")).click();
+    driver.findElement(By.name("pass")).clear();
     driver.findElement(By.name("pass")).sendKeys("secret");
     driver.findElement(By.xpath("//input[@value='Login']")).click();
   }

@@ -16,13 +16,15 @@ public class GroupCreationTest {
   public void setUp() throws Exception {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    login("admin");
+    login();
   }
 
-  private void login(String loginString) {
+  private void login() {
     wd.get("http://localhost:8080/addressbook/");
-    wd.findElement(By.name("user")).sendKeys(loginString);
-    submitGroupCreation("pass");
+    wd.findElement(By.name("user")).click();
+    wd.findElement(By.name("user")).clear();
+    wd.findElement(By.name("user")).sendKeys("admin");
+    wd.findElement(By.name("pass")).click();
     wd.findElement(By.name("pass")).clear();
     wd.findElement(By.name("pass")).sendKeys("secret");
     wd.findElement(By.xpath("//input[@value='Login']")).click();
@@ -30,24 +32,24 @@ public class GroupCreationTest {
 
   @Test
   public void testGroupCreation() throws Exception {
-    goToGroupCreation("groups");
-    initGroupCreation("new");
+    goToGroupCreation();
+    initGroupCreation();
     fillGroupForm(new GroupData("test1", "test2", "test3"));
-    submitGroupCreation("submit");
-    returnToGroupPage("group page");
-    logout("Logout");
+    submitGroupCreation();
+    returnToGroupPage();
+    logout();
   }
 
-  private void logout(String logout) {
-    wd.findElement(By.linkText(logout)).click();
+  private void logout() {
+    wd.findElement(By.linkText("Logout")).click();
   }
 
-  private void returnToGroupPage(String s) {
-    wd.findElement(By.linkText(s)).click();
+  private void returnToGroupPage() {
+    wd.findElement(By.linkText("group page")).click();
   }
 
-  private void submitGroupCreation(String submit) {
-    wd.findElement(By.name(submit)).click();
+  private void submitGroupCreation() {
+    wd.findElement(By.name("submit")).click();
   }
 
   private void fillGroupForm(GroupData groupData) {
@@ -56,12 +58,12 @@ public class GroupCreationTest {
     wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
   }
 
-  private void initGroupCreation(String s) {
-    wd.findElement(By.name(s)).click();
+  private void initGroupCreation() {
+    wd.findElement(By.name("new")).click();
   }
 
-  private void goToGroupCreation(String groups) {
-    wd.findElement(By.linkText(groups)).click();
+  private void goToGroupCreation() {
+    wd.findElement(By.linkText("groups")).click();
   }
 
   @AfterMethod(alwaysRun = true)
