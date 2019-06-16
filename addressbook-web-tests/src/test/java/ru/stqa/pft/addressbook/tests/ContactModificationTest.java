@@ -7,13 +7,13 @@ public class ContactModificationTest extends TestBase {
   @Test
   public void testContactModificationFromList(){
     app.getContactHelper().clickEditFromList();
-    app.getContactHelper().fillContactUpdateForm(new ContactData("Alicja", "Katarzyna", "Zeler", "AliZel",
+    app.getContactHelper().fillContactForm(new ContactData("Alicja", "Katarzyna", "Zeler", "AliZel",
             "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
             "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",
             "504123123", "504123123", "504123123", "ala@wp.pl", "ala1@wp.pl",
             "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
-            "17", "November", "1986", "test1",
-            "Piekna 2\nEłk", "508456456", "uwaga"));
+            "17", "November", "1986", null,
+            "Piekna 2\nEłk", "508456456", "uwaga"),false);
     app.getContactHelper().submitContactModification();
   }
 
@@ -22,13 +22,13 @@ public class ContactModificationTest extends TestBase {
   {
     app.getContactHelper().goToContactDetails();
     app.getContactHelper().clickModifyButton();
-    app.getContactHelper().fillContactUpdateForm(new ContactData("Alicja", "Katarzyna", "Zeler", "AliZel",
+    app.getContactHelper().fillContactForm(new ContactData("Alicja", "Katarzyna", "Zeler", "AliZel",
             "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
             "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",
             "504123123", "504123123", "504123123", "ala@wp.pl", "ala1@wp.pl",
             "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
-            "17", "November", "1986", "test1",
-            "Piekna 2\nEłk", "508456456", "uwaga"));
+            "17", "November", "1986", null,
+            "Piekna 2\nEłk", "508456456", "uwaga"),false);
     app.getContactHelper().submitContactModification();
 
   }
