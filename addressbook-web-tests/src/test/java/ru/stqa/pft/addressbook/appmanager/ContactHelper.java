@@ -43,9 +43,11 @@ public class ContactHelper extends HelperBase {
     click(By.name("amonth"));
     selectOptionFromComboBox(By.name("amonth"), contactData.getAnniversaryMonth());
     type(By.name("ayear"), contactData.getAnniversaryYear());
-    if(creation){
+    if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {Assert.assertFalse(isElementPresent(By.name("new_group")));}
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
 
     type(By.name("address2"), contactData.getSecondAddress());
     type(By.name("phone2"), contactData.getSecondAddressPhone());
@@ -66,11 +68,14 @@ public class ContactHelper extends HelperBase {
   }
 
   public void submitContactModification() {
-      click(By.name("update"));
+    click(By.name("update"));
 
   }
 
   public void goToContactDetails() {
+    if(isElementPresent(By.name("modifiy"))){
+      return;
+    }
     click(By.xpath("//img[@alt='Details']"));
   }
 

@@ -26,9 +26,14 @@ public class HelperBase {
       }
   }}
 
-  protected void typePath(By locator, String text) {
-       wd.findElement(locator).sendKeys(text);
-  }
+  protected void typePath(By locator, String text){
+    if(text!=null){
+    String existingTest=wd.findElement(locator).getAttribute("value"); // getText dla innych pól niz input
+    if(!text.equals(existingTest)){
+      wd.findElement(locator).sendKeys(text);
+    }
+  }}
+
   protected void selectOptionFromComboBox(By locator, String option) {
     new Select(wd.findElement(locator)).selectByVisibleText(option);
   }
