@@ -25,4 +25,13 @@ public class NavigationHelper extends HelperBase {
     }
     click(By.linkText("add new"));
   }
+
+  public void goToHomePage(){
+    if(isElementPresent((By.tagName("strong"))) && wd.findElement(By.tagName("strong")).getText().equals("Number of " +
+            "results: ")){
+      return;
+    }
+    click((By.linkText("home")));
+  }
+
 }

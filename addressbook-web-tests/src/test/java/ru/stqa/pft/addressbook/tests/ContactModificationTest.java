@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -15,8 +16,10 @@ public class ContactModificationTest extends TestBase {
               "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
               "17", "November", "1986", "test1",
               "Piekna 2\nEłk", "508456456", "uwaga"));
+      app.getContactHelper().goToHomePage();
     }
-    app.getContactHelper().clickEditFromList();
+    int before = app.getContactHelper().getContactCount();
+    app.getContactHelper().clickEditFromList(before-1);
     app.getContactHelper().fillContactForm(new ContactData("Alicja", "Katarzyna", "Zeler", "AliZel",
             "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
             "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",
@@ -25,6 +28,9 @@ public class ContactModificationTest extends TestBase {
             "17", "November", "1986", null,
             "Piekna 2\nEłk", "508456456", "uwaga"),false);
     app.getContactHelper().submitContactModification();
+    app.getContactHelper().goToHomePage();
+    int after=app.getContactHelper().getContactCount();
+    Assert.assertEquals(after,before);
   }
 
   @Test
@@ -38,7 +44,9 @@ public class ContactModificationTest extends TestBase {
               "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
               "17", "November", "1986", "test1",
               "Piekna 2\nEłk", "508456456", "uwaga"));
-      app.getContactHelper().goToContactDetails();
+      app.getContactHelper().goToHomePage();}
+      int before=app.getContactHelper().getContactCount();
+      app.getContactHelper().goToContactDetails(before-1);
       app.getContactHelper().clickModifyButton();
       app.getContactHelper().fillContactForm(new ContactData("Alicja", "Katarzyna", "Zeler", "AliZel",
               "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
@@ -48,8 +56,11 @@ public class ContactModificationTest extends TestBase {
               "17", "November", "1986", null,
               "Piekna 2\nEłk", "508456456", "uwaga"), false);
       app.getContactHelper().submitContactModification();
+      app.getContactHelper().goToHomePage();
+      int after=app.getContactHelper().getContactCount();
+      Assert.assertEquals(after,before);
 
-    }
+
 
   }}
 

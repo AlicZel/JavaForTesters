@@ -55,16 +55,16 @@ public class ContactHelper extends HelperBase {
   }
 
 
-  public void selectContact() {
-    click(By.xpath("//tr[2]/td/input"));
+  public void selectContact(int index) {
+    wd.findElements(By.xpath("//tr/td/input")).get(index).click();
   }
 
   public void deletedSelectedContacts() {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void clickEditFromList() {
-    click(By.xpath("//img[@alt='Edit']"));
+  public void clickEditFromList(int index) {
+    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
   public void submitContactModification() {
@@ -72,11 +72,11 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public void goToContactDetails() {
+  public void goToContactDetails(int index) {
     if(isElementPresent(By.name("modifiy"))){
       return;
     }
-    click(By.xpath("//img[@alt='Details']"));
+    wd.findElements(By.xpath("//img[@alt='Details']")).get(index).click();
   }
 
   public void clickModifyButton() {
@@ -96,4 +96,16 @@ public class ContactHelper extends HelperBase {
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//tr[2]/td/input"));
   }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public void goToHomePage() {
+      if(isElementPresent(By.id("maintable"))){
+        return;
+      }
+      click(By.linkText("home page"));
+    }
+
 }
