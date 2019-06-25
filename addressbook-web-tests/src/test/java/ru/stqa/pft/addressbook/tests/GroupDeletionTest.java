@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -12,15 +13,24 @@ public class GroupDeletionTest extends TestBase {
     if (!app.getGroupHelper().isThereAGroup()){
       app.getGroupHelper().createGroup(new GroupData("test1",null, null));
     }
-    int before= app.getGroupHelper().getGroupCount();
-    System.out.println(before);
-    app.getGroupHelper().selectGroup(before-1);
+    List<GroupData> before=app.getGroupHelper().getGroupList();
+    app.getGroupHelper().selectGroup(before.size()-1);
     app.getGroupHelper().deleteSelectedGroups();
     app.getGroupHelper().returnToGroupPage();
-    int after =app.getGroupHelper().getGroupCount();
-    System.out.println(after);
-    Assert.assertEquals(after,before-1);
+    List<GroupData> after=app.getGroupHelper().getGroupList();
+    Assert.assertEquals(after.size(),before.size()-1);
+
+    before.remove(before.size()-1); //usuwamy ze srtarej listy element który usuneliśmy klkając w aplikacji
+    //sprawdzamy w pętli czy string dla elementów z listy before i after są takie same
+
+    //for(int i=0;i<after.size();i++){
+    //  Assert.assertEquals(before.get(i),after.get(i));
+
+    Assert.assertEquals(before,after);
+
+    }
+
   }
 
 
-}
+
