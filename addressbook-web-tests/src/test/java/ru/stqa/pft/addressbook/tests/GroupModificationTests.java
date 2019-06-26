@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import org.testng.Assert;
@@ -24,20 +25,9 @@ public class GroupModificationTests extends TestBase {
     Assert.assertEquals(after.size(), before.size());
     before.remove(before.size()-1);
     before.add(group);
-    //nie mozemy porównywać dwóch ArrayList po modyfikacji
-    // np. mamy listę before={test1, test2, test3}
-    //modyfikujemy nazwę test3 na test1
-    // na stronie aplikacja lista grup jest posortowana , więc otrzymamy after={test1, test1, test2},
-    //czyli nie da się stwierdzić że ostatni element został zmodyfikowany
-    // Set ma tylko unikatowe elementy
-    //ale gdy mamy trzy grupy test1, test2, test3 i zmodyfikujemy nazwę grupy test3 na test1 to w set mamy dwa
-    // elementy test1 i test2
-    // nie byłoby to poprawne porównywanie
-    // więc zeby odróżnić grupę w liście mające takie same nazwy dodaliśmy do GroupData pole id , które
-    // pobieramy z elementu strony
-    // podczas moodyfikiacji zmieniamy nazwe footer, header, ale id pozostawiamy to samo
-
-        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
-    //Assert.assertEquals(before,after); po dodaniu id - to też zadziała
+    Comparator<? super GroupData> byId = (Comparator<GroupData>) (g1, g2) -> Integer.compare(g1.getId(),g2.getId());
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(after, before);
   }
 }

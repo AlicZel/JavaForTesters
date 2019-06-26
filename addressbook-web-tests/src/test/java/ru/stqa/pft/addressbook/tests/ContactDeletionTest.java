@@ -48,7 +48,7 @@ public class ContactDeletionTest extends TestBase{
     Assert.assertEquals(after.size(),before.size()-1);
 
 
-    before.remove(before.size()-1); //usuwamy ze srtarej listy element który usuneliśmy klkając w aplikacji
+    before.remove(before.size()-1); //usuwamy ze starej listy element który usuneliśmy klikając w aplikacji
     //sprawdzamy w pętli czy string dla elementów z listy before i after są takie same
 
    // for(int i=0;i<after.size();i++){

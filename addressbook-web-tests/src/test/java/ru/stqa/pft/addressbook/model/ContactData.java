@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+  private Integer id;
   private final String name;
   private final String secondName;
   private final String surname;
@@ -30,7 +31,10 @@ public class ContactData {
   private final String secondAddressPhone;
   private final String notes;
 
-  public ContactData(String name, String secondName, String surname, String nick, String path, String title, String company, String address, String homeTel, String mobileTel, String workTel, String fax, String email, String email2, String email3, String homepage, String birthDay, String birthMonth, String birthYear, String anniversaryDay, String anniversaryMonth, String anniversaryYear, String group, String secondAddress, String secondAddressPhone, String notes) {
+  public ContactData(Integer id,String name, String secondName, String surname, String nick, String path,
+                     String title,
+                     String company, String address, String homeTel, String mobileTel, String workTel, String fax, String email, String email2, String email3, String homepage, String birthDay, String birthMonth, String birthYear, String anniversaryDay, String anniversaryMonth, String anniversaryYear, String group, String secondAddress, String secondAddressPhone, String notes) {
+    this.id=id;
     this.name = name;
     this.secondName = secondName;
     this.surname = surname;
@@ -57,6 +61,40 @@ public class ContactData {
     this.secondAddress = secondAddress;
     this.secondAddressPhone = secondAddressPhone;
     this.notes = notes;
+  }
+
+  public ContactData(String name, String secondName, String surname, String nick, String path, String title, String company, String address, String homeTel, String mobileTel, String workTel, String fax, String email, String email2, String email3, String homepage, String birthDay, String birthMonth, String birthYear, String anniversaryDay, String anniversaryMonth, String anniversaryYear, String group, String secondAddress, String secondAddressPhone, String notes) {
+    this.id=Integer.MAX_VALUE;
+    this.name = name;
+    this.secondName = secondName;
+    this.surname = surname;
+    this.nick = nick;
+    this.path = path;
+    this.title = title;
+    this.company = company;
+    this.address = address;
+    this.homeTel = homeTel;
+    this.mobileTel = mobileTel;
+    this.workTel = workTel;
+    this.fax = fax;
+    this.email = email;
+    this.email2 = email2;
+    this.email3 = email3;
+    this.homepage = homepage;
+    this.birthDay = birthDay;
+    this.birthMonth = birthMonth;
+    this.birthYear = birthYear;
+    this.anniversaryDay = anniversaryDay;
+    this.anniversaryMonth = anniversaryMonth;
+    this.anniversaryYear = anniversaryYear;
+    this.group = group;
+    this.secondAddress = secondAddress;
+    this.secondAddressPhone = secondAddressPhone;
+    this.notes = notes;
+  }
+
+  public Integer getId() {
+    return id;
   }
 
   public String getName() {
