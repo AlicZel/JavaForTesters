@@ -11,13 +11,17 @@ public class ContactModificationTest extends TestBase {
   public void ensurePreconditions(){
     if (!app.getContactHelper().isThereAContact()){
       app.goTo().gotoNewContactPage();
-      app.getContactHelper().createContact(new ContactData("Alicja123", "Katarzyna", "Zeler", "AliZel",
-              "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
-              "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",
-              "504123123", "504123123", "504123123", "ala@wp.pl", "ala1@wp.pl",
-              "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
-              "17", "November", "1986", "test1",
-              "Piekna 2\nEłk", "508456456", "uwaga"));
+      app.getContactHelper().createContact(new ContactData().withName("Alicja_234").withSecondName("Katarzyna").withSurname("Zeler")
+              .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
+                      "\\beznazwy.png")
+              .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
+              .withMobileTel("504123123").withWorkTel("504123123").withFax("504123123").withEmail("ala@wp.pl").
+                      withEmail2("ala1@wp.pl").withEmail3("ala2@wp.pl").withHomepage("www.wp.pl").withBirthDay("11")
+              .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
+              .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
+              .withSecondAddress("Piekna 2\nEłk")
+              .withSecondAddressPhone("508456456")
+              .withNotes("uwaga"));
       app.getContactHelper().goToHomePage();
     }
   }
@@ -25,13 +29,17 @@ public class ContactModificationTest extends TestBase {
   public void testContactModificationFromList(){
     List<ContactData> before = app.getContactHelper().getContactList();
     int index=before.size()-1;
-    ContactData contact= new ContactData(before.get(index).getId(),"Alicja_987", "Katarzyna", "Zeler", "AliZel",
-            "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
-            "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",
-            "504123123", "504123123", "504123123", "ala@wp.pl", "ala1@wp.pl",
-            "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
-            "17", "November", "1986", null,
-            "Piekna 2\nEłk", "508456456", "uwaga");
+    ContactData contact= new ContactData().withName("ALA_345").withSecondName("Katarzyna").withSurname("Zeler")
+            .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
+                    "\\beznazwy.png")
+            .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
+            .withMobileTel("504123123").withWorkTel("504123123").withFax("504123123").withEmail("ala@wp.pl").
+                    withEmail2("ala1@wp.pl").withEmail3("ala2@wp.pl").withHomepage("www.wp.pl").withBirthDay("11")
+            .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
+            .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
+            .withSecondAddress("Piekna 2\nEłk")
+            .withSecondAddressPhone("508456456")
+            .withNotes("uwaga");
     app.getContactHelper().modifyContact(index,contact);
     List<ContactData> after=app.getContactHelper().getContactList();
     before.remove(index);
@@ -50,13 +58,17 @@ public class ContactModificationTest extends TestBase {
   public void testContactModificationFromDetails() {
       List<ContactData> before = app.getContactHelper().getContactList();
       int index=before.size()-1;
-      ContactData contact =new ContactData(before.get(index).getId(),"Alicja_345", "Katarzyna", "Zeler", "AliZel",
-              "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
-              "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",
-              "504123123", "504123123", "504123123", "ala@wp.pl", "ala1@wp.pl",
-              "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
-              "17", "November", "1986", null,
-              "Piekna 2\nEłk", "508456456", "uwaga");
+      ContactData contact =new ContactData().withName("Alicja_6786").withSecondName("Katarzyna").withSurname("Zeler")
+              .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
+                      "\\beznazwy.png")
+              .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
+              .withMobileTel("504123123").withWorkTel("504123123").withFax("504123123").withEmail("ala@wp.pl").
+                      withEmail2("ala1@wp.pl").withEmail3("ala2@wp.pl").withHomepage("www.wp.pl").withBirthDay("11")
+              .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
+              .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
+              .withSecondAddress("Piekna 2\nEłk")
+              .withSecondAddressPhone("508456456")
+              .withNotes("uwaga");
     app.getContactHelper().modifyGroupFromDetailsForm(index, contact);
     List<ContactData> after = app.getContactHelper().getContactList();
     before.remove(index);
