@@ -16,6 +16,7 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
+
   public void submitNewContactCreation() {
     click(By.xpath("//input[@name='submit']"));
   }
@@ -95,6 +96,31 @@ public class ContactHelper extends HelperBase {
   public void createContact(ContactData contactData) {
    fillContactForm(contactData,true);
    submitNewContactCreation();
+    goToHomePage();
+  }
+
+  public void deleteContact(int index) {
+   selectContact(index);
+    deletedSelectedContacts();
+    confirmAlert();
+  }
+  public void deleteContactFromEditForm(int index) {
+    clickEditFromList(index);
+    clickDeleteButton();
+  }
+  public void modifyContact(int index, ContactData contact) {
+    clickEditFromList(index);
+    fillContactForm(contact,false);
+   submitContactModification();
+    goToHomePage();
+  }
+
+  public void modifyGroupFromDetailsForm(int index, ContactData contact) {
+    goToContactDetails(index);
+    clickModifyButton();
+    fillContactForm(contact, false);
+    submitContactModification();
+    goToHomePage();
   }
 
   public boolean isThereAContact() {
@@ -118,12 +144,14 @@ public class ContactHelper extends HelperBase {
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText();
       String surName = element.findElement(By.xpath(".//td[2]")).getText();
-      ContactData contact = new ContactData(name, null, surName, null, null, null, null, null, null, null, null,
+      Integer id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      System.out.println(id);
+      ContactData contact = new ContactData(id,name, null, surName, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null);
-
       contacts.add(contact);
     }
+    System.out.println("koniec petli");
     return contacts;
     }
   }
