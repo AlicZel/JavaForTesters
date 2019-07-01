@@ -29,7 +29,9 @@ public class ContactModificationTest extends TestBase {
   public void testContactModificationFromList(){
     List<ContactData> before = app.getContactHelper().getContactList();
     int index=before.size()-1;
-    ContactData contact= new ContactData().withName("ALA_345").withSecondName("Katarzyna").withSurname("Zeler")
+    ContactData contact= new ContactData()
+            .withId(before.get(index).getId())
+            .withName("ALA_345").withSecondName("Katarzyna").withSurname("Zeler")
             .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                     "\\beznazwy.png")
             .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
@@ -58,7 +60,8 @@ public class ContactModificationTest extends TestBase {
   public void testContactModificationFromDetails() {
       List<ContactData> before = app.getContactHelper().getContactList();
       int index=before.size()-1;
-      ContactData contact =new ContactData().withName("Alicja_6786").withSecondName("Katarzyna").withSurname("Zeler")
+      ContactData contact =
+              new ContactData().withId(before.get(index).getId()).withName("Alicja_6786").withSecondName("Katarzyna").withSurname("Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                       "\\beznazwy.png")
               .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")

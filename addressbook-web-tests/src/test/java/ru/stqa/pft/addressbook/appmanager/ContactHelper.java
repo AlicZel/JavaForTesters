@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 public class ContactHelper extends HelperBase {
 
@@ -146,9 +145,7 @@ public class ContactHelper extends HelperBase {
       String surName = element.findElement(By.xpath(".//td[2]")).getText();
       Integer id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       System.out.println(id);
-      ContactData contact = new ContactData(id,name, null, surName, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null);
+      ContactData contact = new ContactData().withId(id).withName(name).withSurname(surName);
       contacts.add(contact);
     }
     System.out.println("koniec petli");
