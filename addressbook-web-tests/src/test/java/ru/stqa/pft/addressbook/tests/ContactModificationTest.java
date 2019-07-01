@@ -5,13 +5,12 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 public class ContactModificationTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     if (!app.getContactHelper().isThereAContact()){
-      app.getNavigationHelper().gotoNewContactPage();
+      app.goTo().gotoNewContactPage();
       app.getContactHelper().createContact(new ContactData("Alicja123", "Katarzyna", "Zeler", "AliZel",
               "D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests\\beznazwy.png",
               "Mrs", "COMARCH", "Guderskiego 1/4\nGdańsk", "504123123",

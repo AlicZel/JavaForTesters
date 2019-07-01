@@ -18,7 +18,7 @@ public class ContactCreationTest extends TestBase {
            "ala2@wp.pl", "www.wp.pl", "11", "November", "1986",
            "17", "November", "1986", "jjjjj",
            "Piekna 2\nEłk", "508456456", "uwaga");
-   app.getNavigationHelper().gotoNewContactPage();
+   app.goTo().gotoNewContactPage();
     app.getContactHelper().createContact(contact);
     List<ContactData> after=app.getContactHelper().getContactList();
    before.add(contact);
