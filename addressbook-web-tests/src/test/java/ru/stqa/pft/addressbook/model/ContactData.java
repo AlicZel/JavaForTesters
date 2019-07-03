@@ -34,6 +34,9 @@ public class ContactData {
   private String allEmails;
 
 
+  private Integer howOld;
+
+
 
   public Integer getId() {
     return id;
@@ -320,4 +323,7 @@ public class ContactData {
     this.allEmails = allEmails;
     return this;
   }
+
+
+
 }

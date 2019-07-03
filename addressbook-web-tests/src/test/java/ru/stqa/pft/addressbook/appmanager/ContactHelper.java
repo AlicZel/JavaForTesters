@@ -175,6 +175,12 @@ public class ContactHelper extends HelperBase {
 
   }
 
+  public String dataFromDetailsForm(ContactData contactData){
+    initViewById(contactData.getId());
+    return wd.findElement(By.id("content")).getText();
+
+  }
+
   public ContactData infoFromEditForm(ContactData contact) {
     initModificationById(contact.getId());
     String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
@@ -218,5 +224,9 @@ public class ContactHelper extends HelperBase {
 
   private void initModificationById(Integer id) {
     wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
+  }
+
+  private void initViewById(Integer id) {
+    wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']",id))).click();
   }
 }
