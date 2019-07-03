@@ -30,6 +30,8 @@ public class ContactData {
   private  String secondAddress;
   private  String secondAddressPhone;
   private  String notes;
+  private String allPhones;
+  private String allEmails;
 
 
 
@@ -297,7 +299,25 @@ public class ContactData {
             "id='"+id +'\''+
             ", name='" + name + '\'' +
             ", surname='" + surname + '\'' +
+            ", address='" + address + '\'' +
             '}';
   }
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
 }

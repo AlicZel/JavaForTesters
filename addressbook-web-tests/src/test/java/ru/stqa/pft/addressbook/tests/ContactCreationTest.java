@@ -22,10 +22,11 @@ public class ContactCreationTest extends TestBase {
             .withSecondAddress("Piekna 2\nEłk")
             .withSecondAddressPhone("508456456")
             .withNotes("uwaga");
-    app.goTo().gotoNewContactPage();
-    app.contact().createContact(contact);
+    app.goTo().newContactPage();
+    app.contact().create(contact);
+    assertThat(app.group().count(),
+            equalTo(before.size()+1));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt())).size()));
     assertThat(after, equalTo(before.withAdded(contact)));
   }
 

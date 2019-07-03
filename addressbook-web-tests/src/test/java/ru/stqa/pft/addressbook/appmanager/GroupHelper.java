@@ -12,6 +12,7 @@ public class GroupHelper extends HelperBase {
   public GroupHelper(WebDriver wd) {
     super(wd);
   }
+  private Groups groupCache = null;
 
   public void returnToGroupPage() {
     if(isElementPresent(By.id("maintable"))){
@@ -52,6 +53,7 @@ public class GroupHelper extends HelperBase {
     fillGroupForm(group);
     submitGroupCreation();
     returnToGroupPage();
+    groupCache=null;
   }
 
   public void modify(GroupData group) {
@@ -60,32 +62,37 @@ public class GroupHelper extends HelperBase {
     fillGroupForm(group);
     submitGroupModification();
     returnToGroupPage();
+    groupCache=null;
   }
 
   public boolean isThereAGroup() {
   return isElementPresent(By.name("selected[]"));
   }
 
-  public int getGroupCount() {
+  public int count() {
    return wd.findElements(By.name("selected[]")).size();
   }
 
   public Groups all() {
-    Groups groups = new Groups();
+    if (groupCache!=null){
+      return new Groups(groupCache);
+    }
+    groupCache=new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for(WebElement element:elements){
       String name=element.getText();
       Integer id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       GroupData group =new GroupData().withId(id).withName(name);
-      groups.add(group);
+      groupCache.add(group);
     }
-    return groups;
+    return new Groups(groupCache);
   }
 
   public void delete(GroupData group) {
     selectGroupById(group.getId());
     deleteSelectedGroups();
     returnToGroupPage();
+    groupCache =null;
   }
 
   private void selectGroupById(Integer id) {

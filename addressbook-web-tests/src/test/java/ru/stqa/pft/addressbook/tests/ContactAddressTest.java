@@ -2,15 +2,13 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactDeletionTest extends TestBase{
-
+public class ContactAddressTest extends TestBase{
   @BeforeMethod
-  public void prepareConditions(){
-    if (app.contact().count()==0){
+  public void ensurePreconditions() {
+    if (app.contact().count() == 0) {
       app.goTo().newContactPage();
       app.contact().create(new ContactData().withName("ALA").withSecondName("Katarzyna").withSurname("Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
@@ -25,30 +23,20 @@ public class ContactDeletionTest extends TestBase{
               .withNotes("uwaga"));
     }
   }
-  @Test()
-  public void testContactDeletionFromList(){
-    Contacts before = app.contact().all();
-    ContactData contact = before.iterator().next();
-    app.contact().delete(contact);
-    app.goTo().goToHomePage();
-    assertThat(app.group().count(), equalTo(before.size()-1));
-    Contacts after = app.contact().all();
-    assertThat(after, equalTo(before.withOut(contact)));
-  }
-
-
-
   @Test
-  public void testContactDeletionFromEditMode(){
-    Contacts before = app.contact().all();
-    ContactData contact = before.iterator().next();
-    app.contact().deleteFromEditForm(contact);
+  public void testContactAddress(){
     app.goTo().goToHomePage();
-    assertThat(app.group().count(), equalTo(before.size()-1));
-    Contacts after = app.contact().all();
-    assertThat(after, equalTo(before.withOut(contact)));
-
+    ContactData  contact= app.contact().all().iterator().next();
+    System.out.println(contact);
+    ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+    assertThat(cleaned(contact.getAddress()), equalTo(cleaned(contactInfoFromEditForm.getAddress())));
   }
+
+  public static String  cleaned(String address){
+    return address.replaceAll("\n","").replaceAll("\\s","");
+  }
+
+
 
 
 }

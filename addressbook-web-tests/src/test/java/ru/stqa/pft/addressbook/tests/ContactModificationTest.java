@@ -9,9 +9,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactModificationTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
-    if (app.contact().all().size()==0) {
-      app.goTo().gotoNewContactPage();
-      app.contact().createContact(new ContactData().withName("Alicja_ZXC").withSecondName("Katarzyna").withSurname(
+    if (app.contact().count()==0) {
+      app.goTo().newContactPage();
+      app.contact().create(new ContactData().withName("Alicja_ZXC").withSecondName("Katarzyna").withSurname(
               "Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                       "\\beznazwy.png")
@@ -46,8 +46,8 @@ public class ContactModificationTest extends TestBase {
             .withNotes("uwaga");
 
     app.contact().modify(newContact);
+    assertThat(app.group().count(), equalTo(before.size()));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.withOut(contact).withAdded(newContact).size()));
     assertThat(after, equalTo(before.withOut(contact).withAdded(newContact)));
 
 
@@ -73,8 +73,8 @@ public class ContactModificationTest extends TestBase {
                     .withSecondAddressPhone("508456456")
                     .withNotes("uwaga");
     app.contact().modifyFromDetailsForm(newContact);
+    assertThat(app.group().count(), equalTo(before.size()));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.withOut(contact).withAdded(newContact).size()));
     assertThat(after, equalTo(before.withOut(contact).withAdded(newContact)));
 
   }

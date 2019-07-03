@@ -1,16 +1,16 @@
 package ru.stqa.pft.addressbook.tests;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactDeletionTest extends TestBase{
-
+public class ContactPhoneTests extends TestBase {
   @BeforeMethod
-  public void prepareConditions(){
-    if (app.contact().count()==0){
+  public void ensurePreconditions() {
+        if (app.contact().count() == 0) {
       app.goTo().newContactPage();
       app.contact().create(new ContactData().withName("ALA").withSecondName("Katarzyna").withSurname("Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
@@ -25,30 +25,21 @@ public class ContactDeletionTest extends TestBase{
               .withNotes("uwaga"));
     }
   }
-  @Test()
-  public void testContactDeletionFromList(){
-    Contacts before = app.contact().all();
-    ContactData contact = before.iterator().next();
-    app.contact().delete(contact);
-    app.goTo().goToHomePage();
-    assertThat(app.group().count(), equalTo(before.size()-1));
-    Contacts after = app.contact().all();
-    assertThat(after, equalTo(before.withOut(contact)));
-  }
-
-
-
   @Test
-  public void testContactDeletionFromEditMode(){
-    Contacts before = app.contact().all();
-    ContactData contact = before.iterator().next();
-    app.contact().deleteFromEditForm(contact);
+  public void testContactPhones(){
     app.goTo().goToHomePage();
-    assertThat(app.group().count(), equalTo(before.size()-1));
-    Contacts after = app.contact().all();
-    assertThat(after, equalTo(before.withOut(contact)));
-
+    ContactData contact= app.contact().all().iterator().next();
+    ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+    assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
   }
 
+  public static String  cleaned(String phone){
+    return phone.replaceAll("\\s","").replaceAll("[-()]","");
+  }
+
+  private String mergePhones(ContactData contactData){
+    return Arrays.asList(contactData.getHomeTel(), contactData.getMobileTel(), contactData.getWorkTel()).stream().filter((s)->!s.equals(""))
+            .map(ContactPhoneTests::cleaned).collect(Collectors.joining("\n"));
+  }
 
 }
