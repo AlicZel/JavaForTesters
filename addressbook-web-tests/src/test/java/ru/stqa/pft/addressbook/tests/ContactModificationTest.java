@@ -9,9 +9,9 @@ import ru.stqa.pft.addressbook.model.ContactData;
 public class ContactModificationTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
-    if (!app.getContactHelper().isThereAContact()){
+    if (!app.contact().isThereAContact()){
       app.goTo().gotoNewContactPage();
-      app.getContactHelper().createContact(new ContactData().withName("Alicja_234").withSecondName("Katarzyna").withSurname("Zeler")
+      app.contact().createContact(new ContactData().withName("Alicja_234").withSecondName("Katarzyna").withSurname("Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                       "\\beznazwy.png")
               .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
@@ -22,12 +22,12 @@ public class ContactModificationTest extends TestBase {
               .withSecondAddress("Piekna 2\nEłk")
               .withSecondAddressPhone("508456456")
               .withNotes("uwaga"));
-      app.getContactHelper().goToHomePage();
+      app.contact().goToHomePage();
     }
   }
   @Test
   public void testContactModificationFromList(){
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
     int index=before.size()-1;
     ContactData contact= new ContactData()
             .withId(before.get(index).getId())
@@ -42,8 +42,8 @@ public class ContactModificationTest extends TestBase {
             .withSecondAddress("Piekna 2\nEłk")
             .withSecondAddressPhone("508456456")
             .withNotes("uwaga");
-    app.getContactHelper().modifyContact(index,contact);
-    List<ContactData> after=app.getContactHelper().getContactList();
+    app.contact().modifyContact(index,contact);
+    List<ContactData> after=app.contact().list();
     before.remove(index);
     before.add(contact);
     Comparator<? super ContactData> byId=(g1,g2) -> Integer.compare(g1.getId(),g2.getId());
@@ -58,7 +58,7 @@ public class ContactModificationTest extends TestBase {
 
   @Test()
   public void testContactModificationFromDetails() {
-      List<ContactData> before = app.getContactHelper().getContactList();
+      List<ContactData> before = app.contact().list();
       int index=before.size()-1;
       ContactData contact =
               new ContactData().withId(before.get(index).getId()).withName("Alicja_6786").withSecondName("Katarzyna").withSurname("Zeler")
@@ -72,8 +72,8 @@ public class ContactModificationTest extends TestBase {
               .withSecondAddress("Piekna 2\nEłk")
               .withSecondAddressPhone("508456456")
               .withNotes("uwaga");
-    app.getContactHelper().modifyGroupFromDetailsForm(index, contact);
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().modifyGroupFromDetailsForm(index, contact);
+    List<ContactData> after = app.contact().list();
     before.remove(index);
     before.add(contact);
     Assert.assertEquals(after.size(), before.size());

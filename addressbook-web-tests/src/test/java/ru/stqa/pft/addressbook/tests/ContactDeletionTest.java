@@ -9,9 +9,9 @@ public class ContactDeletionTest extends TestBase{
 
   @BeforeMethod
   public void prepareConditions(){
-    if (!app.getContactHelper().isThereAContact()){
+    if (!app.contact().isThereAContact()){
       app.goTo().gotoNewContactPage();
-      app.getContactHelper().createContact(new ContactData().withName("ALA").withSecondName("Katarzyna").withSurname("Zeler")
+      app.contact().createContact(new ContactData().withName("ALA").withSecondName("Katarzyna").withSurname("Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                       "\\beznazwy.png")
               .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
@@ -26,11 +26,11 @@ public class ContactDeletionTest extends TestBase{
   }
   @Test
   public void testContactDeletionFromList(){
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
     int index=before.size()-1;
-    app.getContactHelper().deleteContact(index);
+    app.contact().deleteContact(index);
     app.goTo().goToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(),before.size()-1);
   }
 
@@ -38,11 +38,11 @@ public class ContactDeletionTest extends TestBase{
 
   @Test
   public void testContactDeletionFromEditMode(){
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
     int index=before.size()-1;
-    app.getContactHelper().deleteContactFromEditForm(index);
+    app.contact().deleteContactFromEditForm(index);
     app.goTo().goToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(),before.size()-1);
     before.remove(index);
     Assert.assertEquals(after,before);

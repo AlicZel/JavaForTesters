@@ -1,7 +1,9 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -137,18 +139,38 @@ public class ContactHelper extends HelperBase {
       click(By.linkText("home page"));
     }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText();
       String surName = element.findElement(By.xpath(".//td[2]")).getText();
       Integer id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      System.out.println(id);
       ContactData contact = new ContactData().withId(id).withName(name).withSurname(surName);
       contacts.add(contact);
     }
-    System.out.println("koniec petli");
     return contacts;
     }
+
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    System.out.println("Rozmiar tr:"+ elements.size());
+    for (WebElement element : elements) {
+      String name = element.findElement(By.xpath(".//td[3]")).getText();
+      String surName = element.findElement(By.xpath(".//td[2]")).getText();
+      Integer id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      System.out.println("id przed dodaniem "+ id);
+      ContactData contact = new ContactData().withId(id).withName(name).withSurname(surName);
+      System.out.println(contact.getId());
+      System.out.println(contact);
+      contacts.add(contact);
+      System.out.println("po dodaniu rozmiar to "+contacts.size());
+
+     }
+    System.out.println("koniec petli");
+    System.out.println("Rozmiar po koncu petli :"+contacts.size());
+    return contacts;
+
+  }
   }
