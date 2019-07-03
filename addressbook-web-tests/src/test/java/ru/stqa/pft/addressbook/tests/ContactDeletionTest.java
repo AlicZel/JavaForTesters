@@ -1,15 +1,17 @@
 package ru.stqa.pft.addressbook.tests;
 
-import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDeletionTest extends TestBase{
 
   @BeforeMethod
   public void prepareConditions(){
-    if (!app.contact().isThereAContact()){
+    if (app.contact().all().size()==0){
       app.goTo().gotoNewContactPage();
       app.contact().createContact(new ContactData().withName("ALA").withSecondName("Katarzyna").withSurname("Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
@@ -24,28 +26,28 @@ public class ContactDeletionTest extends TestBase{
               .withNotes("uwaga"));
     }
   }
-  @Test
+  @Test()
   public void testContactDeletionFromList(){
-    List<ContactData> before = app.contact().list();
-    int index=before.size()-1;
-    app.contact().deleteContact(index);
+    Contacts before = app.contact().all();
+    ContactData contact = before.iterator().next();
+    app.contact().delete(contact);
     app.goTo().goToHomePage();
-    List<ContactData> after = app.contact().list();
-    Assert.assertEquals(after.size(),before.size()-1);
+    Contacts after = app.contact().all();
+    assertThat(after, equalTo(before.withOut(contact)));
   }
 
 
 
   @Test
   public void testContactDeletionFromEditMode(){
-    List<ContactData> before = app.contact().list();
-    int index=before.size()-1;
-    app.contact().deleteContactFromEditForm(index);
+    Contacts before = app.contact().all();
+    ContactData contact = before.iterator().next();
+    app.contact().deleteFromEditForm(contact);
     app.goTo().goToHomePage();
-    List<ContactData> after = app.contact().list();
+    Contacts after = app.contact().all();
     Assert.assertEquals(after.size(),before.size()-1);
-    before.remove(index);
-    Assert.assertEquals(after,before);
+    assertThat(after.size(), equalTo(before.withOut(contact).size()));
+    assertThat(after, equalTo(before.withOut(contact)));
 
   }
 

@@ -1,17 +1,18 @@
 package ru.stqa.pft.addressbook.tests;
 
-import java.util.Comparator;
-import java.util.List;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactModificationTest extends TestBase {
   @BeforeMethod
-  public void ensurePreconditions(){
-    if (!app.contact().isThereAContact()){
+  public void ensurePreconditions() {
+    if (app.contact().all().size()==0) {
       app.goTo().gotoNewContactPage();
-      app.contact().createContact(new ContactData().withName("Alicja_234").withSecondName("Katarzyna").withSurname("Zeler")
+      app.contact().createContact(new ContactData().withName("Alicja_ZXC").withSecondName("Katarzyna").withSurname(
+              "Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                       "\\beznazwy.png")
               .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
@@ -25,12 +26,13 @@ public class ContactModificationTest extends TestBase {
       app.contact().goToHomePage();
     }
   }
+
   @Test
-  public void testContactModificationFromList(){
-    List<ContactData> before = app.contact().list();
-    int index=before.size()-1;
-    ContactData contact= new ContactData()
-            .withId(before.get(index).getId())
+  public void testContactModificationFromList() {
+    Contacts before = app.contact().all();
+    ContactData contact = before.iterator().next();
+    ContactData newContact = new ContactData()
+            .withId(contact.getId())
             .withName("ALA_345").withSecondName("Katarzyna").withSurname("Zeler")
             .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                     "\\beznazwy.png")
@@ -42,45 +44,38 @@ public class ContactModificationTest extends TestBase {
             .withSecondAddress("Piekna 2\nEłk")
             .withSecondAddressPhone("508456456")
             .withNotes("uwaga");
-    app.contact().modifyContact(index,contact);
-    List<ContactData> after=app.contact().list();
-    before.remove(index);
-    before.add(contact);
-    Comparator<? super ContactData> byId=(g1,g2) -> Integer.compare(g1.getId(),g2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(after,before);
+
+    app.contact().modify(newContact);
+    Contacts after = app.contact().all();
+    assertThat(after.size(), equalTo(before.withOut(contact).withAdded(newContact).size()));
+    assertThat(after, equalTo(before.withOut(contact).withAdded(newContact)));
 
 
   }
 
 
-
   @Test()
   public void testContactModificationFromDetails() {
-      List<ContactData> before = app.contact().list();
-      int index=before.size()-1;
-      ContactData contact =
-              new ContactData().withId(before.get(index).getId()).withName("Alicja_6786").withSecondName("Katarzyna").withSurname("Zeler")
-              .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
-                      "\\beznazwy.png")
-              .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
-              .withMobileTel("504123123").withWorkTel("504123123").withFax("504123123").withEmail("ala@wp.pl").
-                      withEmail2("ala1@wp.pl").withEmail3("ala2@wp.pl").withHomepage("www.wp.pl").withBirthDay("11")
-              .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
-              .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
-              .withSecondAddress("Piekna 2\nEłk")
-              .withSecondAddressPhone("508456456")
-              .withNotes("uwaga");
-    app.contact().modifyGroupFromDetailsForm(index, contact);
-    List<ContactData> after = app.contact().list();
-    before.remove(index);
-    before.add(contact);
-    Assert.assertEquals(after.size(), before.size());
-    Comparator<? super ContactData> byId=(Comparator<ContactData>)(g1, g2) -> Integer.compare(g1.getId(),g2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(after,before);
+    Contacts before = app.contact().all();
+    ContactData contact = before.iterator().next();
+    ContactData newContact = new ContactData()
+                    .withId(contact.getId())
+                    .withName("Alicja_6786").withSecondName("Katarzyna").withSurname("Zeler")
+                    .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
+                    "\\beznazwy.png")
+                    .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel(
+                    "504123123")
+                    .withMobileTel("504123123").withWorkTel("504123123").withFax("504123123").withEmail("ala@wp.pl").
+                    withEmail2("ala1@wp.pl").withEmail3("ala2@wp.pl").withHomepage("www.wp.pl").withBirthDay("11")
+                    .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
+                    .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
+                    .withSecondAddress("Piekna 2\nEłk")
+                    .withSecondAddressPhone("508456456")
+                    .withNotes("uwaga");
+    app.contact().modifyFromDetailsForm(newContact);
+    Contacts after = app.contact().all();
+    assertThat(after.size(), equalTo(before.withOut(contact).withAdded(newContact).size()));
+    assertThat(after, equalTo(before.withOut(contact).withAdded(newContact)));
 
   }
 

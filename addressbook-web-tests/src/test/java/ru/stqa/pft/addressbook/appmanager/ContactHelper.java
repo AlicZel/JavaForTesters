@@ -1,15 +1,13 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 public class ContactHelper extends HelperBase {
 
@@ -61,9 +59,6 @@ public class ContactHelper extends HelperBase {
   }
 
 
-  public void selectContact(int index) {
-    wd.findElements(By.xpath("//tr/td/input")).get(index).click();
-  }
 
   public void deletedSelectedContacts() {
     click(By.xpath("//input[@value='Delete']"));
@@ -78,11 +73,12 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public void goToContactDetails(int index) {
+
+  public void goToContactDetailsById(int id) {
     if(isElementPresent(By.name("modifiy"))){
       return;
     }
-    wd.findElements(By.xpath("//img[@alt='Details']")).get(index).click();
+    wd.findElement(By.cssSelector("[href='view.php?id="+id+"']")).click();
   }
 
   public void clickModifyButton() {
@@ -100,28 +96,43 @@ public class ContactHelper extends HelperBase {
     goToHomePage();
   }
 
-  public void deleteContact(int index) {
-   selectContact(index);
+
+  public void delete(ContactData contact){
+    selectContactById(contact.getId());
     deletedSelectedContacts();
     confirmAlert();
   }
-  public void deleteContactFromEditForm(int index) {
-    clickEditFromList(index);
+
+  private void selectContactById(Integer id) {
+    click(By.xpath("//input[@value='"+id+"']"));
+  }
+
+
+  public void deleteFromEditForm(ContactData contact){
+    clickEditById(contact.getId());
     clickDeleteButton();
   }
-  public void modifyContact(int index, ContactData contact) {
-    clickEditFromList(index);
+
+  private void clickEditById(Integer id) {
+    wd.findElement(By.cssSelector("[href='edit.php?id="+id+"']")).click();
+  }
+
+
+
+  public void modify(ContactData contact){
+    clickEditById(contact.getId());
     fillContactForm(contact,false);
-   submitContactModification();
+    submitContactModification();
     goToHomePage();
   }
 
-  public void modifyGroupFromDetailsForm(int index, ContactData contact) {
-    goToContactDetails(index);
+   public void modifyFromDetailsForm(ContactData contact){
+    goToContactDetailsById(contact.getId());
     clickModifyButton();
     fillContactForm(contact, false);
     submitContactModification();
     goToHomePage();
+
   }
 
   public boolean isThereAContact() {
@@ -139,37 +150,19 @@ public class ContactHelper extends HelperBase {
       click(By.linkText("home page"));
     }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-    for (WebElement element : elements) {
-      String name = element.findElement(By.xpath(".//td[3]")).getText();
-      String surName = element.findElement(By.xpath(".//td[2]")).getText();
-      Integer id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData().withId(id).withName(name).withSurname(surName);
-      contacts.add(contact);
-    }
-    return contacts;
-    }
 
-  public Set<ContactData> all() {
-    Set<ContactData> contacts = new HashSet<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-    System.out.println("Rozmiar tr:"+ elements.size());
     for (WebElement element : elements) {
       String name = element.findElement(By.xpath(".//td[3]")).getText();
       String surName = element.findElement(By.xpath(".//td[2]")).getText();
       Integer id= Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      System.out.println("id przed dodaniem "+ id);
       ContactData contact = new ContactData().withId(id).withName(name).withSurname(surName);
-      System.out.println(contact.getId());
-      System.out.println(contact);
       contacts.add(contact);
-      System.out.println("po dodaniu rozmiar to "+contacts.size());
+
 
      }
-    System.out.println("koniec petli");
-    System.out.println("Rozmiar po koncu petli :"+contacts.size());
     return contacts;
 
   }

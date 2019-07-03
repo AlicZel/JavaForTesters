@@ -1,18 +1,16 @@
 package ru.stqa.pft.addressbook.tests;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTest extends TestBase {
 
   @Test
   public void testContactCreation() {
-    System.out.println("Lista before");
-    Set<ContactData> before = app.contact().all();
+    Contacts before = app.contact().all();
     ContactData contact = new ContactData().withName("ALA123").withSecondName("Katarzyna").withSurname("Zeler")
             .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
                     "\\beznazwy.png")
@@ -26,14 +24,9 @@ public class ContactCreationTest extends TestBase {
             .withNotes("uwaga");
     app.goTo().gotoNewContactPage();
     app.contact().createContact(contact);
-    System.out.println("Lista after");
-    Set<ContactData> after = app.contact().all();
-   contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-    System.out.println("Element dodawany do before" + contact);
-
-    before.add(contact);
-    Assert.assertEquals(after.size(),before.size());
-   Assert.assertEquals(before, after);
+    Contacts after = app.contact().all();
+    assertThat(after.size(), equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt())).size()));
+    assertThat(after, equalTo(before.withAdded(contact)));
   }
 
 
