@@ -1,6 +1,13 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.thoughtworks.xstream.XStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
@@ -12,19 +19,27 @@ public class ContactCreationTest extends TestBase {
   // za pomocą meotdy get absolute na kazdym z reserwa wskazany jest kompletna sciezka do pliku
   //tj. C:/JavaForTesters.....
 
-  @Test
-  public void testContactCreation() {
+
+  @DataProvider
+  public Iterator<Object[]> validContacts() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+    String xml ="";
+    String line= reader.readLine();
+    while(line!=null){
+      xml+=line;
+      line =reader.readLine();
+    }
+    XStream xstream = new XStream();
+    xstream.processAnnotations(ContactData.class);
+    List<ContactData> contacts= (List<ContactData>)xstream.fromXML(xml);
+    return contacts.stream().map((g)-> new Object[]{g}).collect(Collectors.toList()).iterator();
+  }
+
+
+
+  @Test(dataProvider = "validContacts")
+  public void testContactCreation(ContactData contact) {
     Contacts before = app.contact().all();
-    ContactData contact = new ContactData().withName("ALA123").withSecondName("Katarzyna").withSurname("Zeler")
-            .withNick("AliZel").withPhoto(photo)
-            .withTitle("Mrs").withCompany("COMARCH").withAddress("Guderskiego 1/4\nGdańsk").withHomeTel("504123123")
-            .withMobileTel("504123123").withWorkTel("504123123").withFax("504123123").withEmail("ala@wp.pl").
-                    withEmail2("ala1@wp.pl").withEmail3("ala2@wp.pl").withHomepage("www.wp.pl").withBirthDay("11")
-            .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
-            .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
-            .withSecondAddress("Piekna 2\nEłk")
-            .withSecondAddressPhone("508456456")
-            .withNotes("uwaga");
     app.goTo().newContactPage();
     app.contact().create(contact);
     assertThat(app.group().count(),

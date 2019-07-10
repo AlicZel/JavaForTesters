@@ -296,7 +296,7 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(id, that.id) &&
+    return id == that.id  &&
             Objects.equals(name, that.name) &&
             Objects.equals(surname, that.surname);
   }
@@ -309,7 +309,7 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "id='"+id +'\''+
+            "id='" + id + '\'' +
             ", name='" + name + '\'' +
             ", surname='" + surname + '\'' +
             ", address='" + address + '\'' +
