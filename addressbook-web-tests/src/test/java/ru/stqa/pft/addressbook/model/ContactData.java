@@ -296,7 +296,7 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return id == that.id  &&
+    return Objects.equals(id, that.id)  &&
             Objects.equals(name, that.name) &&
             Objects.equals(surname, that.surname);
   }

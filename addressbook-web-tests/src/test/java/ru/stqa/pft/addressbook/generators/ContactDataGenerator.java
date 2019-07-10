@@ -57,9 +57,9 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(groups);
-    Writer writer= new FileWriter(file);
-    writer.write(xml);
-    writer.close();//zawartosc ceche'a zapisuje sie na dysku
+    try( Writer writer= new FileWriter(file)){
+         writer.write(xml);}
+
   }
 
   private static List<ContactData> generateContacts(int count) {
@@ -95,19 +95,19 @@ public class ContactDataGenerator {
 
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
     System.out.println(new File(".").getAbsolutePath());// biezacy katalog
-    Writer writer= new FileWriter(file);
-    for(ContactData contact: contacts){
-      writer.write(String.format("%s;%s;%s\n",contact.getName(),contact.getSecondName(),contact.getSurname(),
-              contact.getNick(),contact.getPath(),contact.getPhoto(),contact.getTitle(),contact.getCompany(),
-              contact.getAddress(),contact.getHomeTel(),contact.getMobileTel(),contact.getWorkTel(),
-              contact.getEmail(),contact.getEmail2(),contact.getEmail3(),contact.getHomepage(),contact.getBirthDay(),
-              contact.getBirthMonth(),contact.getBirthYear(),contact.getAnniversaryDay(),contact.getAnniversaryMonth(),
-              contact.getAnniversaryYear(),contact.getGroup(),contact.getSecondAddress(),
-              contact.getSecondAddressPhone(),
-              contact.getNotes()
-              ));
+    try(Writer writer= new FileWriter(file)) {
+      for (ContactData contact : contacts) {
+        writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getSecondName(), contact.getSurname(),
+                contact.getNick(), contact.getPath(), contact.getPhoto(), contact.getTitle(), contact.getCompany(),
+                contact.getAddress(), contact.getHomeTel(), contact.getMobileTel(), contact.getWorkTel(),
+                contact.getEmail(), contact.getEmail2(), contact.getEmail3(), contact.getHomepage(), contact.getBirthDay(),
+                contact.getBirthMonth(), contact.getBirthYear(), contact.getAnniversaryDay(), contact.getAnniversaryMonth(),
+                contact.getAnniversaryYear(), contact.getGroup(), contact.getSecondAddress(),
+                contact.getSecondAddressPhone(),
+                contact.getNotes()
+        ));
+      }
     }
-    writer.close();
 
   }
 }

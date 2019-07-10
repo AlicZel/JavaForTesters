@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.Test
+
 apply plugin: 'java'
 repositories {
     mavenCentral()
@@ -9,4 +11,27 @@ dependencies {
     compile group: 'com.beust', name: 'jcommander', version: '1.48'
     compile 'com.thoughtworks.xstream:xstream:1.4.8'
 
+}
+
+task testGroups(type: Test){
+    useTestNG(){
+        suites 'src/test/resources/testng-groups.xml'
+    }
+    if(projects.hasProperty("browser")){
+        systemProperty 'browser',"${browser}"}
+
+    if(projects.hasProperty("target")){
+        systemProperty 'target',"${browser}"}
+}
+
+
+task testContacts(type: Test){
+    useTestNG(){
+        suites 'src/test/resources/testng-contacts.xml'
+    }
+   if(projects.hasProperty("browser")){
+    systemProperty 'browser',"${browser}"}
+
+    if(projects.hasProperty("target")){
+        systemProperty 'target',"${browser}"}
 }
