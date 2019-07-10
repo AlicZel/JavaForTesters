@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import java.io.File;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +26,12 @@ public class HelperBase {
       wd.findElement(locator).sendKeys(text);
       }
   }}
+
+  protected void attach(By locator, File file) {
+    if(file!=null) {
+      wd.findElement(locator).sendKeys(file.getAbsolutePath());
+    }
+    }
 
   protected void typePath(By locator, String text){
     if(text!=null){

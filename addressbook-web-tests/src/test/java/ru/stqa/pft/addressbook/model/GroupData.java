@@ -1,8 +1,16 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.util.Objects;
 
+@XStreamAlias("group")
 public class GroupData {
+  @XStreamOmitField
+  private  int id  = Integer.MAX_VALUE;
+  private  String name;
+  private  String header;
+  private  String footer;
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -17,10 +25,7 @@ public class GroupData {
     return Objects.hash(id, name);
   }
 
-  private  int id  = Integer.MAX_VALUE;
-  private  String name;
-  private  String header;
-  private  String footer;
+
 
 
 

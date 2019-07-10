@@ -33,7 +33,20 @@ public class ContactDetailsTest extends TestBase {
     app.goTo().goToHomePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm =  app.contact().infoFromEditForm(contact);
-    assertThat(app.contact().dataFromDetailsForm(contact).replaceAll("(?m)^[ \t]*\r?\n", "").replaceAll("[\\n\\r]" +
+    assertThat(app.contact().dataFromDetailsForm(contact)
+                   // .replaceAll("\nW: ","")
+                //    .replaceAll("\nH: ","")
+                 //   .replaceAll("\nF: ","")
+                  //  .replaceAll("\nM: ","")
+                 //   .replaceAll("\nHomepage:","")
+                  //  .replaceAll("\nBirthday\\s\\.\\(\\) ","")
+                  //  .replaceAll("\nAnniversary\\s\\.\\(\\) ","")
+                  //  .replaceAll("\nHomepage:","")
+                  //  .replaceAll("\nP: ","")
+                    .replaceAll("(?m)" +
+                    "^[ " +
+                    "\t]*\r?\n", "").replaceAll(
+            "[\\n\\r]" +
                     ".*Member of:\\s*([^\\n\\r]*)",
             ""),
             equalTo(mergeData(contactInfoFromEditForm)));
@@ -42,12 +55,19 @@ public class ContactDetailsTest extends TestBase {
   private String mergeData(ContactData contactData) {
     return Arrays.asList(contactData.getName()+" "+ contactData.getSecondName()+" " + contactData.getSurname(),
             contactData.getNick(), contactData.getTitle(), contactData.getCompany(), contactData.getAddress(),
-            "H: " + contactData.getHomeTel(), "M: " + contactData.getMobileTel(), "W: " + contactData.getWorkTel(),
-            "F: " + contactData.getFax(), contactData.getEmail(), contactData.getEmail2(), contactData.getEmail3(),
-            "Homepage:", contactData.getHomepage(),
-            "Birthday " + contactData.getBirthDay() + ". " + contactData.getBirthMonth() + " " + contactData.getBirthYear() + " (" + howOld(contactData) + ")",
-            "Anniversary " + contactData.getAnniversaryDay() + ". " + contactData.getBirthMonth() + " " + contactData.getAnniversaryYear() + " (" + howManyAniwersary(contactData) + ")",
-            contactData.getSecondAddress(), "P: " + contactData.getSecondAddressPhone(), contactData.getNotes()).stream().filter((s) -> !s.equals(""))
+            contactData.getHomeTel(),contactData.getMobileTel(),contactData.getWorkTel(),
+            contactData.getFax(), contactData.getEmail(), contactData.getEmail2(), contactData.getEmail3(),
+            contactData.getHomepage(),
+            contactData.getBirthDay(),
+            contactData.getBirthMonth(),contactData.getBirthYear(),
+           // contactData.getBirthDay() + ". " + contactData.getBirthMonth() + " " + contactData.getBirthYear() + "
+            // (" + howOld(contactData) + ")",
+            //contactData.getAnniversaryDay()
+            // + ". " + contactData.getBirthMonth() + " " + contactData
+            //            // .getAnniversaryYear() + " (" + howManyAniwersary(contactData) + ")",
+            contactData.getAnniversaryDay(), contactData.getBirthMonth(),
+            contactData.getAnniversaryYear(),
+            contactData.getSecondAddress(),contactData.getSecondAddressPhone(), contactData.getNotes()).stream().filter((s) -> !s.equals(""))
             .map(ContactDetailsTest::cleaned).collect(Collectors.joining("\n"));
   }
 

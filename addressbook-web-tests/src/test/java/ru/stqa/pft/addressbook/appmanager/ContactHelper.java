@@ -26,7 +26,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("middlename"), contactData.getSecondName());
     type(By.name("lastname"), contactData.getSurname());
     type(By.name("nickname"), contactData.getNick());
-    typePath(By.name("photo"), contactData.getPath());
+    attach(By.name("photo"), contactData.getPhoto());
     type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"), contactData.getAddress());
@@ -229,4 +229,6 @@ public class ContactHelper extends HelperBase {
   private void initViewById(Integer id) {
     wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']",id))).click();
   }
+
+
 }

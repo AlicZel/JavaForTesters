@@ -1,0 +1,92 @@
+<list>
+  <contact>
+    <name>ALA123 0</name>
+    <secondName>Katarzyna 0</secondName>
+    <surname>Zeler 0</surname>
+    <nick>AliZel 0</nick>
+    <title>Mrs 0</title>
+    <company>COMARCH 0</company>
+    <address>Guderskiego 1/4
+Gdańsk 0</address>
+    <homeTel>504123123 0</homeTel>
+    <mobileTel>504123123 0</mobileTel>
+    <workTel>504123123 0</workTel>
+    <fax>504123123 0</fax>
+    <email>ala@wp.pl 0</email>
+    <email2>ala1@wp.pl 0</email2>
+    <email3>ala2@wp.pl 0</email3>
+    <homepage>www.wp.pl 0</homepage>
+    <birthDay>11</birthDay>
+    <birthMonth>November</birthMonth>
+    <birthYear>1986</birthYear>
+    <anniversaryDay>17</anniversaryDay>
+    <anniversaryMonth>November</anniversaryMonth>
+    <anniversaryYear>1986</anniversaryYear>
+    <group>jjjjj</group>
+    <secondAddress>Piekna 2
+Ełk</secondAddress>
+    <secondAddressPhone>508456456</secondAddressPhone>
+    <notes>uwaga</notes>
+    <photo>src\test\resources\beznazwy.png</photo>
+  </contact>
+  <contact>
+    <name>ALA123 1</name>
+    <secondName>Katarzyna 1</secondName>
+    <surname>Zeler 1</surname>
+    <nick>AliZel 1</nick>
+    <title>Mrs 1</title>
+    <company>COMARCH 1</company>
+    <address>Guderskiego 1/4
+Gdańsk 1</address>
+    <homeTel>504123123 1</homeTel>
+    <mobileTel>504123123 1</mobileTel>
+    <workTel>504123123 1</workTel>
+    <fax>504123123 1</fax>
+    <email>ala@wp.pl 1</email>
+    <email2>ala1@wp.pl 1</email2>
+    <email3>ala2@wp.pl 1</email3>
+    <homepage>www.wp.pl 1</homepage>
+    <birthDay>11</birthDay>
+    <birthMonth>November</birthMonth>
+    <birthYear>1986</birthYear>
+    <anniversaryDay>17</anniversaryDay>
+    <anniversaryMonth>November</anniversaryMonth>
+    <anniversaryYear>1986</anniversaryYear>
+    <group>jjjjj</group>
+    <secondAddress>Piekna 2
+Ełk</secondAddress>
+    <secondAddressPhone>508456456</secondAddressPhone>
+    <notes>uwaga</notes>
+    <photo>src\test\resources\beznazwy.png</photo>
+  </contact>
+  <contact>
+    <name>ALA123 2</name>
+    <secondName>Katarzyna 2</secondName>
+    <surname>Zeler 2</surname>
+    <nick>AliZel 2</nick>
+    <title>Mrs 2</title>
+    <company>COMARCH 2</company>
+    <address>Guderskiego 1/4
+Gdańsk 2</address>
+    <homeTel>504123123 2</homeTel>
+    <mobileTel>504123123 2</mobileTel>
+    <workTel>504123123 2</workTel>
+    <fax>504123123 2</fax>
+    <email>ala@wp.pl 2</email>
+    <email2>ala1@wp.pl 2</email2>
+    <email3>ala2@wp.pl 2</email3>
+    <homepage>www.wp.pl 2</homepage>
+    <birthDay>11</birthDay>
+    <birthMonth>November</birthMonth>
+    <birthYear>1986</birthYear>
+    <anniversaryDay>17</anniversaryDay>
+    <anniversaryMonth>November</anniversaryMonth>
+    <anniversaryYear>1986</anniversaryYear>
+    <group>jjjjj</group>
+    <secondAddress>Piekna 2
+Ełk</secondAddress>
+    <secondAddressPhone>508456456</secondAddressPhone>
+    <notes>uwaga</notes>
+    <photo>src\test\resources\beznazwy.png</photo>
+  </contact>
+</list>
