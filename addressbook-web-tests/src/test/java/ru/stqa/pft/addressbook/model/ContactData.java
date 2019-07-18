@@ -4,40 +4,84 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.io.File;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.criteria.CriteriaBuilder;
+import org.hibernate.annotations.Type;
+import org.hibernate.type.descriptor.sql.TinyIntTypeDescriptor;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name= "addressbook")
 public class ContactData {
   @XStreamOmitField
+  @Id
+  @Column(name ="id")
   private Integer id=Integer.MAX_VALUE;
+  @Column(name="firstname")
   private  String name;
+  @Column(name="middelname")
   private  String secondName;
+  @Column(name="lastname")
   private  String surname;
+  @Column(name="nickname")
   private  String nick;
+@Transient
   private  String path;
+  @Column(name="title")
   private  String title;
+  @Column(name="company")
   private  String company;
+  @Column(name="address")
+  @Type(type="text")
   private  String address;
+  @Column(name="home")
+  @Type(type="text")
   private  String homeTel;
+  @Column(name="mobile")
   private  String mobileTel;
+  @Column(name="work")
   private  String workTel;
+  @Column(name="fax")
   private  String fax;
+  @Column(name="email")
   private  String email;
+  @Column(name="email2")
   private  String email2;
+  @Column(name="email3")
   private  String email3;
+  @Column(name="homepage")
   private  String homepage;
+  @Column(name="bday")
   private  String birthDay;
+  @Column(name="bmonth")
   private  String birthMonth;
+  @Column(name="byear")
   private  String birthYear;
-  private  String anniversaryDay;
+  @Column(name="aday")
+ // @Type(type="smallint")
+  private Integer anniversaryDay;
+  @Column(name="amonth")
   private String anniversaryMonth;
+  @Column(name="ayear")
   private  String anniversaryYear;
+  @Transient
   private  String group;
+  @Column(name="address2")
   private  String secondAddress;
+  @Column(name="phone2")
   private  String secondAddressPhone;
+  @Column(name="notes")
   private  String notes;
+  @Transient
   private String allPhones;
+@Transient
   private String allEmails;
-  private File photo;
+  @Column(name="photo")
+  private String photo;
 
   public Integer getId() {
     return id;
@@ -120,7 +164,7 @@ public class ContactData {
   }
 
   public String getAnniversaryDay() {
-    return anniversaryDay;
+    return  Integer.toString(anniversaryDay);
   }
 
   public String getAnniversaryMonth() {
@@ -248,8 +292,8 @@ public class ContactData {
   }
 
   public ContactData withAnniversaryDay(String anniversaryDay) {
-    this.anniversaryDay = anniversaryDay;
-    return this;
+   this.anniversaryDay=Integer.valueOf(anniversaryDay);
+       return this;
   }
 
   public ContactData withAnniversaryMonth(String anniversaryMonth) {
@@ -283,11 +327,11 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
