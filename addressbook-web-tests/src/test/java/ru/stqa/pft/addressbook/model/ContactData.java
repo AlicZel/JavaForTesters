@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.criteria.CriteriaBuilder;
 import org.hibernate.annotations.Type;
-import org.hibernate.type.descriptor.sql.TinyIntTypeDescriptor;
 
 @XStreamAlias("contact")
 @Entity
@@ -22,16 +20,21 @@ public class ContactData {
   @Column(name ="id")
   private Integer id=Integer.MAX_VALUE;
   @Column(name="firstname")
-  private  String name;
-  @Column(name="middelname")
+  @Type(type="string")
+  String name;
+  @Column(name="middlename")
+  @Type(type="string")
   private  String secondName;
   @Column(name="lastname")
+  @Type(type="string")
   private  String surname;
   @Column(name="nickname")
+  @Type(type="string")
   private  String nick;
 @Transient
   private  String path;
   @Column(name="title")
+  @Type(type="string")
   private  String title;
   @Column(name="company")
   private  String company;
@@ -42,28 +45,34 @@ public class ContactData {
   @Type(type="text")
   private  String homeTel;
   @Column(name="mobile")
+  @Type(type="text")
   private  String mobileTel;
   @Column(name="work")
+  @Type(type="text")
   private  String workTel;
   @Column(name="fax")
+  @Type(type="text")
   private  String fax;
   @Column(name="email")
+  @Type(type="text")
   private  String email;
   @Column(name="email2")
+  @Type(type="text")
   private  String email2;
   @Column(name="email3")
+  @Type(type="text")
   private  String email3;
   @Column(name="homepage")
+  @Type(type="text")
   private  String homepage;
   @Column(name="bday")
-  private  String birthDay;
+  private  Byte birthDay;
   @Column(name="bmonth")
   private  String birthMonth;
   @Column(name="byear")
   private  String birthYear;
   @Column(name="aday")
- // @Type(type="smallint")
-  private Integer anniversaryDay;
+  private Byte anniversaryDay;
   @Column(name="amonth")
   private String anniversaryMonth;
   @Column(name="ayear")
@@ -71,16 +80,20 @@ public class ContactData {
   @Transient
   private  String group;
   @Column(name="address2")
+  @Type(type="text")
   private  String secondAddress;
   @Column(name="phone2")
+  @Type(type="text")
   private  String secondAddressPhone;
   @Column(name="notes")
+  @Type(type="text")
   private  String notes;
   @Transient
   private String allPhones;
 @Transient
   private String allEmails;
   @Column(name="photo")
+  @Type(type="text")
   private String photo;
 
   public Integer getId() {
@@ -152,7 +165,7 @@ public class ContactData {
   }
 
   public String getBirthDay() {
-    return birthDay;
+    return birthDay.toString();
   }
 
   public String getBirthMonth() {
@@ -164,7 +177,7 @@ public class ContactData {
   }
 
   public String getAnniversaryDay() {
-    return  Integer.toString(anniversaryDay);
+    return anniversaryDay.toString();
   }
 
   public String getAnniversaryMonth() {
@@ -227,7 +240,7 @@ public class ContactData {
   }
 
   public ContactData withCompany(String company) {
-    this.company = company;
+    this.company =company;
     return this;
   }
 
@@ -277,7 +290,7 @@ public class ContactData {
   }
 
   public ContactData withBirthDay(String birthDay) {
-    this.birthDay = birthDay;
+    this.birthDay =Byte.parseByte(birthDay);
     return this;
   }
 
@@ -292,7 +305,7 @@ public class ContactData {
   }
 
   public ContactData withAnniversaryDay(String anniversaryDay) {
-   this.anniversaryDay=Integer.valueOf(anniversaryDay);
+   this.anniversaryDay=Byte.parseByte(anniversaryDay);
        return this;
   }
 

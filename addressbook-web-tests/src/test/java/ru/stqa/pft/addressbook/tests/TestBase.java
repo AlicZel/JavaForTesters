@@ -3,7 +3,6 @@ package ru.stqa.pft.addressbook.tests;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
