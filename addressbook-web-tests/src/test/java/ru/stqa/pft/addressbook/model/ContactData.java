@@ -92,9 +92,9 @@ public class ContactData {
   private String allPhones;
 @Transient
   private String allEmails;
-  @Column(name="photo")
-  @Type(type="text")
-  private String photo;
+//  @Column(name="photo")
+//  @Type(type="text")
+ // private String photo;
 
   public Integer getId() {
     return id;
@@ -339,37 +339,82 @@ public class ContactData {
     return this;
   }
 
-  public File getPhoto() {
-    return new File(photo);
-  }
-
-  public ContactData withPhoto(File photo) {
-    this.photo = photo.getPath();
-    return this;
-  }
+  //public File getPhoto() {
+  //  return new File(photo);
+  //}
+  //
+  //public ContactData withPhoto(File photo) {
+  //  this.photo = photo.getPath();
+  //  return this;
+  //}
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(id, that.id)  &&
-            Objects.equals(name, that.name) &&
-            Objects.equals(surname, that.surname);
+    return Objects.equals(name, that.name) &&
+            Objects.equals(secondName, that.secondName) &&
+            Objects.equals(surname, that.surname) &&
+            Objects.equals(nick, that.nick) &&
+            Objects.equals(title, that.title) &&
+            Objects.equals(company, that.company) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(homeTel, that.homeTel) &&
+            Objects.equals(mobileTel, that.mobileTel) &&
+            Objects.equals(workTel, that.workTel) &&
+            Objects.equals(fax, that.fax) &&
+            Objects.equals(email, that.email) &&
+            Objects.equals(email2, that.email2) &&
+            Objects.equals(email3, that.email3) &&
+            Objects.equals(homepage, that.homepage) &&
+            Objects.equals(birthDay, that.birthDay) &&
+            Objects.equals(birthMonth, that.birthMonth) &&
+            Objects.equals(birthYear, that.birthYear) &&
+            Objects.equals(anniversaryDay, that.anniversaryDay) &&
+            Objects.equals(anniversaryMonth, that.anniversaryMonth) &&
+            Objects.equals(anniversaryYear, that.anniversaryYear) &&
+            Objects.equals(secondAddress, that.secondAddress) &&
+            Objects.equals(secondAddressPhone, that.secondAddressPhone) &&
+            Objects.equals(notes, that.notes);
+
+
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, surname);
+    return Objects.hash(name, secondName, surname, nick, title, company, address, homeTel, mobileTel, workTel,
+            fax, email, email2, email3, homepage, birthDay, birthMonth, birthYear, anniversaryDay, anniversaryMonth,
+            anniversaryYear, secondAddress, secondAddressPhone, notes);
   }
 
   @Override
   public String toString() {
     return "ContactData{" +
-            "id='" + id + '\'' +
-            ", name='" + name + '\'' +
+            "name='" + name + '\'' +
+            ", secondName='" + secondName + '\'' +
             ", surname='" + surname + '\'' +
+            ", nick='" + nick + '\'' +
+            ", title='" + title + '\'' +
+            ", company='" + company + '\'' +
             ", address='" + address + '\'' +
+            ", homeTel='" + homeTel + '\'' +
+            ", mobileTel='" + mobileTel + '\'' +
+            ", workTel='" + workTel + '\'' +
+            ", fax='" + fax + '\'' +
+            ", email='" + email + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", homepage='" + homepage + '\'' +
+            ", birthDay=" + birthDay +
+            ", birthMonth='" + birthMonth + '\'' +
+            ", birthYear='" + birthYear + '\'' +
+            ", anniversaryDay=" + anniversaryDay +
+            ", anniversaryMonth='" + anniversaryMonth + '\'' +
+            ", anniversaryYear='" + anniversaryYear + '\'' +
+            ", secondAddress='" + secondAddress + '\'' +
+            ", secondAddressPhone='" + secondAddressPhone + '\'' +
+            ", notes='" + notes + '\'' +
             '}';
   }
 

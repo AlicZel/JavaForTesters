@@ -4,6 +4,7 @@
     <secondName>Katarzyna 0</secondName>
     <surname>Zeler 0</surname>
     <nick>AliZel 0</nick>
+    <path>D:\SzkolenieJavaDlaTesterów\JavaForTesters\addressbook-web-tests\src\test\resources\beznazwy.png</path>
     <title>Mrs 0</title>
     <company>COMARCH 0</company>
     <address>Guderskiego 1/4
@@ -27,13 +28,13 @@ Gdańsk 0</address>
 Ełk</secondAddress>
     <secondAddressPhone>508456456</secondAddressPhone>
     <notes>uwaga</notes>
-    <photo>src\test\resources\beznazwy.png</photo>
   </contact>
   <contact>
     <name>ALA123 1</name>
     <secondName>Katarzyna 1</secondName>
     <surname>Zeler 1</surname>
     <nick>AliZel 1</nick>
+    <path>D:\SzkolenieJavaDlaTesterów\JavaForTesters\addressbook-web-tests\src\test\resources\beznazwy.png</path>
     <title>Mrs 1</title>
     <company>COMARCH 1</company>
     <address>Guderskiego 1/4
@@ -57,13 +58,13 @@ Gdańsk 1</address>
 Ełk</secondAddress>
     <secondAddressPhone>508456456</secondAddressPhone>
     <notes>uwaga</notes>
-    <photo>src\test\resources\beznazwy.png</photo>
   </contact>
   <contact>
     <name>ALA123 2</name>
     <secondName>Katarzyna 2</secondName>
     <surname>Zeler 2</surname>
     <nick>AliZel 2</nick>
+    <path>D:\SzkolenieJavaDlaTesterów\JavaForTesters\addressbook-web-tests\src\test\resources\beznazwy.png</path>
     <title>Mrs 2</title>
     <company>COMARCH 2</company>
     <address>Guderskiego 1/4
@@ -87,6 +88,5 @@ Gdańsk 2</address>
 Ełk</secondAddress>
     <secondAddressPhone>508456456</secondAddressPhone>
     <notes>uwaga</notes>
-    <photo>src\test\resources\beznazwy.png</photo>
   </contact>
 </list>

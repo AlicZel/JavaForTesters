@@ -22,7 +22,7 @@ public class ContactDataGenerator {
   @Parameter(names="-d", description = "Data format")
   public String format;
 
-
+ static File photo = new File("src/test/resources/beznazwy.png");
 
 
   public static void main(String[] args) throws IOException {
@@ -69,7 +69,7 @@ public class ContactDataGenerator {
               new ContactData().withName(String.format("ALA123 %s",i)).withSecondName(String.format("Katarzyna %s",i))
                       .withSurname(String.format("Zeler %s",i))
                       .withNick(String.format("AliZel %s",i))
-                      .withPhoto(new File("src/test/resources/beznazwy.png"))
+                      .withPath(photo.getAbsolutePath())
                       .withTitle(String.format("Mrs %s",i))
                       .withCompany(String.format("COMARCH %s",i))
                       .withAddress(String.format("Guderskiego 1/4\nGdańsk %s",i))
@@ -98,7 +98,7 @@ public class ContactDataGenerator {
     try(Writer writer= new FileWriter(file)) {
       for (ContactData contact : contacts) {
         writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getSecondName(), contact.getSurname(),
-                contact.getNick(), contact.getPath(), contact.getPhoto(), contact.getTitle(), contact.getCompany(),
+                contact.getNick(), contact.getPath(), contact.getPath(), contact.getTitle(), contact.getCompany(),
                 contact.getAddress(), contact.getHomeTel(), contact.getMobileTel(), contact.getWorkTel(),
                 contact.getEmail(), contact.getEmail2(), contact.getEmail3(), contact.getHomepage(), contact.getBirthDay(),
                 contact.getBirthMonth(), contact.getBirthYear(), contact.getAnniversaryDay(), contact.getAnniversaryMonth(),

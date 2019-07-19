@@ -10,7 +10,7 @@ public class ContactDeletionTest extends TestBase{
 
   @BeforeMethod
   public void prepareConditions(){
-    if (app.contact().count()==0){
+    if (app.db().contacts().size()==0){
       app.goTo().newContactPage();
       app.contact().create(new ContactData().withName("ALA").withSecondName("Katarzyna").withSurname("Zeler")
               .withNick("AliZel").withPath("D:\\SzkolenieJavaDlaTesterów\\JavaForTesters\\addressbook-web-tests" +
@@ -27,12 +27,12 @@ public class ContactDeletionTest extends TestBase{
   }
   @Test()
   public void testContactDeletionFromList(){
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData contact = before.iterator().next();
     app.contact().delete(contact);
     app.goTo().goToHomePage();
     assertThat(app.group().count(), equalTo(before.size()-1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.withOut(contact)));
   }
 
@@ -40,12 +40,12 @@ public class ContactDeletionTest extends TestBase{
 
   @Test
   public void testContactDeletionFromEditMode(){
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData contact = before.iterator().next();
     app.contact().deleteFromEditForm(contact);
     app.goTo().goToHomePage();
     assertThat(app.group().count(), equalTo(before.size()-1));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.withOut(contact)));
 
   }
