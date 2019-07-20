@@ -83,7 +83,8 @@ public class ContactDataGenerator {
                       withHomepage(String.format("www.wp.pl %s",i))
                       .withBirthDay("11")
                       .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
-                      .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
+                      .withAnniversaryMonth("November").withAnniversaryYear("1986")
+                      //.withGroup("jjjjj")
                       .withSecondAddress("Piekna 2\nEłk")
                       .withSecondAddressPhone("508456456")
                       .withNotes("uwaga")
@@ -102,7 +103,10 @@ public class ContactDataGenerator {
                 contact.getAddress(), contact.getHomeTel(), contact.getMobileTel(), contact.getWorkTel(),
                 contact.getEmail(), contact.getEmail2(), contact.getEmail3(), contact.getHomepage(), contact.getBirthDay(),
                 contact.getBirthMonth(), contact.getBirthYear(), contact.getAnniversaryDay(), contact.getAnniversaryMonth(),
-                contact.getAnniversaryYear(), contact.getGroup(), contact.getSecondAddress(),
+                contact.getAnniversaryYear()
+                //,
+               // contact.getGroup()
+                , contact.getSecondAddress(),
                 contact.getSecondAddressPhone(),
                 contact.getNotes()
         ));

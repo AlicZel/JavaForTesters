@@ -20,7 +20,8 @@ public class ContactModificationTest extends TestBase {
               .withMobileTel("504123123").withWorkTel("504123123").withFax("504123123").withEmail("ala@wp.pl").
                       withEmail2("ala1@wp.pl").withEmail3("ala2@wp.pl").withHomepage("www.wp.pl").withBirthDay("11")
               .withBirthMonth("November").withBirthYear("1986").withAnniversaryDay("17")
-              .withAnniversaryMonth("November").withAnniversaryYear("1986").withGroup("jjjjj")
+              .withAnniversaryMonth("November").withAnniversaryYear("1986")
+              //.withGroup("jjjjj")
               .withSecondAddress("Piekna 2\nEłk")
               .withSecondAddressPhone("508456456")
               .withNotes("uwaga"));
@@ -52,7 +53,6 @@ public class ContactModificationTest extends TestBase {
     Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.withOut(contact).withAdded(newContact)));
 
-
   }
 
 
@@ -78,10 +78,12 @@ public class ContactModificationTest extends TestBase {
     app.contact().modifyFromDetailsForm(newContact);
     assertThat(app.contact().count(), equalTo(before.size()));
     Contacts after = app.db().contacts();
-
     assertThat(after, equalTo(before.withOut(contact).withAdded(newContact)));
+    verifyGroupListInUI();
+
 
   }
+
 
 }
 

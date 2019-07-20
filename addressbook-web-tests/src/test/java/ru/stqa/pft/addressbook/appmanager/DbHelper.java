@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import java.util.List;
+import javax.management.relation.Relation;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -10,6 +11,8 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.RelationData;
+import ru.stqa.pft.addressbook.model.Relations;
 
 public class DbHelper {
   private final SessionFactory sessionFactory;
@@ -43,10 +46,15 @@ public class DbHelper {
       return new Groups(result);
     }
 
-
-
-
-
+  public Relations relations(){
+    Session session;
+    session= sessionFactory.openSession();
+    session.beginTransaction();
+    List<RelationData> result = session.createQuery( "from RelationData where deprecated='0000-00-00'").list();
+    session.getTransaction().commit();
+    session.close();
+    return new Relations(result);
+  }
 
 
 

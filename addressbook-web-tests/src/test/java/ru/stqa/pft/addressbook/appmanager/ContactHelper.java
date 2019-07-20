@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 public class ContactHelper extends HelperBase {
 
@@ -49,7 +50,7 @@ public class ContactHelper extends HelperBase {
     selectOptionFromComboBox(By.name("amonth"), contactData.getAnniversaryMonth());
     type(By.name("ayear"), contactData.getAnniversaryYear());
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    //  new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -230,5 +231,34 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']",id))).click();
   }
 
+  private void selectGroup(GroupData group){
+    Select groupCombo= new Select(wd.findElement(By.name("to_group")));
+    groupCombo.selectByVisibleText(group.getName());
+  }
 
+  private void clickAddTo(){
+    wd.findElement(By.cssSelector("input[value='Add to']")).click();
+  }
+
+  public void addContactToGroup(ContactData contact, GroupData newGroup) {
+    selectContactById(contact.getId());
+    selectGroup(newGroup);
+    clickAddTo();
+
+  }
+
+  public void removeContactFromGroup(ContactData contact, GroupData oldGroup) {
+    initViewById(contact.getId());
+    chooseMemberOfGroup(oldGroup.getId());
+    selectContactById(contact.getId());
+    clickRemoveFromGroup();
+  }
+
+  private void clickRemoveFromGroup() {
+     wd.findElement(By.cssSelector("input[name='remove']")).click();
+  }
+
+  private void chooseMemberOfGroup(Integer id) {
+    wd.findElement(By.cssSelector(String.format("a[href='./index.php?group=%s']",id))).click();
+  }
 }

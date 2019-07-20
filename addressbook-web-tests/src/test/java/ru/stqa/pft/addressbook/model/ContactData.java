@@ -2,11 +2,16 @@ package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
@@ -77,8 +82,6 @@ public class ContactData {
   private String anniversaryMonth;
   @Column(name="ayear")
   private  String anniversaryYear;
-  @Transient
-  private  String group;
   @Column(name="address2")
   @Type(type="text")
   private  String secondAddress;
@@ -92,6 +95,12 @@ public class ContactData {
   private String allPhones;
 @Transient
   private String allEmails;
+@ManyToMany(fetch= FetchType.EAGER)
+@JoinTable(name="address_in_groups", joinColumns = @JoinColumn(name="id"),inverseJoinColumns = @JoinColumn(name=
+        "group_id"))
+private Set<GroupData> groups = new HashSet<GroupData>();
+
+
 //  @Column(name="photo")
 //  @Type(type="text")
  // private String photo;
@@ -188,13 +197,10 @@ public class ContactData {
     return anniversaryYear;
   }
 
-  public String getGroup() {
-    return group;
-  }
-
   public String getSecondAddress() {
     return secondAddress;
   }
+
 
   public String getSecondAddressPhone() {
     return secondAddressPhone;
@@ -202,6 +208,10 @@ public class ContactData {
 
   public String getNotes() {
     return notes;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public ContactData withId(Integer id) {
@@ -319,11 +329,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public ContactData withSecondAddress(String secondAddress) {
     this.secondAddress = secondAddress;
     return this;
@@ -376,7 +381,8 @@ public class ContactData {
             Objects.equals(anniversaryYear, that.anniversaryYear) &&
             Objects.equals(secondAddress, that.secondAddress) &&
             Objects.equals(secondAddressPhone, that.secondAddressPhone) &&
-            Objects.equals(notes, that.notes);
+            Objects.equals(notes, that.notes) &&
+              Objects.equals(groups, that.groups);
 
 
   }
@@ -385,7 +391,7 @@ public class ContactData {
   public int hashCode() {
     return Objects.hash(name, secondName, surname, nick, title, company, address, homeTel, mobileTel, workTel,
             fax, email, email2, email3, homepage, birthDay, birthMonth, birthYear, anniversaryDay, anniversaryMonth,
-            anniversaryYear, secondAddress, secondAddressPhone, notes);
+            anniversaryYear, secondAddress, secondAddressPhone, notes,groups);
   }
 
   @Override
@@ -435,7 +441,9 @@ public class ContactData {
     this.allEmails = allEmails;
     return this;
   }
-
-
+  public ContactData withGroups(Groups groups) {
+    this.groups = groups;
+    return this;
+  }
 
 }
