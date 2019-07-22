@@ -422,7 +422,7 @@ private Set<GroupData> groups = new HashSet<GroupData>();
             ", secondAddress='" + secondAddress + '\'' +
             ", secondAddressPhone='" + secondAddressPhone + '\'' +
             ", notes='" + notes + '\'' +
-            ", groups='" + groups + '\'' +
+         //   ", groups='" + groups + '\'' +
             '}';
   }
 
