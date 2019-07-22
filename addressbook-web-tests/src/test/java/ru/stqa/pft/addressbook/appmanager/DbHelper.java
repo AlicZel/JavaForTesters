@@ -46,11 +46,12 @@ public class DbHelper {
       return new Groups(result);
     }
 
-  public Relations relations(){
+  public Relations relations(String id, String group_id){
     Session session;
     session= sessionFactory.openSession();
     session.beginTransaction();
-    List<RelationData> result = session.createQuery( "from RelationData where deprecated='0000-00-00'").list();
+    List<RelationData> result =
+            session.createQuery( "from RelationData where deprecated='0000-00-00' and contacId="+id+" and groupId="+group_id).list();
     session.getTransaction().commit();
     session.close();
     return new Relations(result);
