@@ -20,7 +20,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name= "addressbook")
 public class ContactData {
-  @XStreamOmitField
+  //@XStreamOmitField
   @Id
   @Column(name ="id")
   private Integer id=Integer.MAX_VALUE;
@@ -100,7 +100,8 @@ public class ContactData {
         "group_id"))
 private Set<GroupData> groups = new HashSet<GroupData>();
 //private Groups groups = new Groups();
-
+@Transient
+public GroupData groupData;
 
 //  @Column(name="photo")
 //  @Type(type="text")
@@ -211,9 +212,16 @@ private Set<GroupData> groups = new HashSet<GroupData>();
     return notes;
   }
 
-  public Groups getGroups() {
-    return new Groups(groups);
+
+
+  public GroupData getGroupData() {
+    return groupData;
   }
+
+
+ public Groups getGroups() {
+    return new Groups(groups); }
+
 
   public ContactData withId(Integer id) {
     this.id = id;
@@ -344,6 +352,10 @@ private Set<GroupData> groups = new HashSet<GroupData>();
     this.notes = notes;
     return this;
   }
+  public ContactData withGroupData(GroupData groupData) {
+    this.groupData = groupData;
+    return this;
+  }
 
   //public File getPhoto() {
   //  return new File(photo);
@@ -382,8 +394,8 @@ private Set<GroupData> groups = new HashSet<GroupData>();
             Objects.equals(anniversaryYear, that.anniversaryYear) &&
             Objects.equals(secondAddress, that.secondAddress) &&
             Objects.equals(secondAddressPhone, that.secondAddressPhone) &&
-            Objects.equals(notes, that.notes) &&
-              Objects.equals(groups, that.groups);
+            Objects.equals(notes, that.notes) ;
+
 
 
   }
@@ -392,13 +404,14 @@ private Set<GroupData> groups = new HashSet<GroupData>();
   public int hashCode() {
     return Objects.hash(name, secondName, surname, nick, title, company, address, homeTel, mobileTel, workTel,
             fax, email, email2, email3, homepage, birthDay, birthMonth, birthYear, anniversaryDay, anniversaryMonth,
-            anniversaryYear, secondAddress, secondAddressPhone, notes,groups);
+            anniversaryYear, secondAddress, secondAddressPhone, notes);
   }
 
   @Override
   public String toString() {
     return "ContactData{" +
-            "name='" + name + '\'' +
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
             ", secondName='" + secondName + '\'' +
             ", surname='" + surname + '\'' +
             ", nick='" + nick + '\'' +
@@ -422,7 +435,6 @@ private Set<GroupData> groups = new HashSet<GroupData>();
             ", secondAddress='" + secondAddress + '\'' +
             ", secondAddressPhone='" + secondAddressPhone + '\'' +
             ", notes='" + notes + '\'' +
-         //   ", groups='" + groups + '\'' +
             '}';
   }
 
@@ -443,9 +455,6 @@ private Set<GroupData> groups = new HashSet<GroupData>();
     this.allEmails = allEmails;
     return this;
   }
-  public ContactData withGroups(Groups groups) {
-    this.groups = groups;
-    return this;
-  }
+
 
 }

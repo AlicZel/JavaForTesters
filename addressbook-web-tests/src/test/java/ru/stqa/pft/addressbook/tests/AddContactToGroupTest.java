@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -41,21 +42,36 @@ public class AddContactToGroupTest extends TestBase {
   @Test
   public void testAddContactToGroup() {
     ContactData contact =app.db().contacts().iterator().next();
-    Groups groupBefore=app.db().groups();
+    Groups groupsBefore=app.db().groups();
     GroupData newGroup=app.db().groups().iterator().next();
-    Integer idNewGroup=newGroup.getId();
-    System.out.println("idNewGroup" + idNewGroup);
+    final Integer idGroup=newGroup.getId();
+   final Integer idContact=contact.getId();
+    String id= Integer.toString(idContact);
+    String idG= Integer.toString(idGroup);
+
+   // System.out.println("idContact" + idContact);
     app.goTo().goToHomePage();
     app.contact().addContactToGroup(contact,newGroup);
     Groups groupsAfter = app.db().groups();
     System.out.println(" groupsAfter " + groupsAfter);
-    ContactData newContactwithGroup = contact.withGroups(new Groups().withAdded(newGroup));
-    GroupData newGroupWithContact = newGroup.withContacts(new Contacts().withAdded(newContactwithGroup));
+    ContactData newContactWithGroup = contact.withGroupData(newGroup);
+    System.out.println(" to jedno zapytanie robi " + groupsAfter);
+    Contacts contactsAfter =app.db().contacts();
 
-    List<GroupData> groupsAfterForSelectedContact=
-            groupsAfter.stream().filter(g->g.getName().startsWith("test")).collect(Collectors.toList());
-    System.out.println("size"+ groupsAfterForSelectedContact.size());
-    assertThat(groupsAfterForSelectedContact.get(0),equalTo(newGroupWithContact));
+  //  List<ContactData> selectedContacts=
+            contactsAfter.stream().forEach(g-> System.out.println(g.getId()));
+                    //.collect(Collectors.toList());
+    ContactData selectedContact =
+            contactsAfter.stream().filter(g -> Integer.toString(g.getId()).equals(id)).findFirst().get();
+
+    GroupData selectedGroup=
+            groupsAfter.stream().filter(g -> Integer.toString(g.getId()).equals(idG)).findFirst().get();
+
+    System.out.println(" selectedContact" + selectedContact);
+    System.out.println("getGroups "+  selectedContact.getGroups());
+    System.out.println("Selected group" + selectedGroup);
+
+    assertThat(selectedContact.getGroups(),equalTo(selectedGroup));
 
 
 

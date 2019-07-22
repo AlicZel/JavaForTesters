@@ -1,7 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -10,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 
 @XStreamAlias("group")
@@ -30,9 +30,13 @@ public class GroupData {
   private  String footer;
   @ManyToMany(mappedBy = "groups",fetch= FetchType.EAGER)
  private Set<ContactData> contacts = new HashSet<ContactData>();
-  //private Contacts contacts = new Contacts();
+  @Transient
+  private ContactData contactData;
 
-    @Override
+
+
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -40,8 +44,7 @@ public class GroupData {
     return id == groupData.id &&
             Objects.equals(name, groupData.name) &&
             Objects.equals(header, groupData.header) &&
-            Objects.equals(footer, groupData.footer) &&
-            Objects.equals(contacts, groupData.contacts);
+            Objects.equals(footer, groupData.footer) ;
 
   }
 
@@ -70,14 +73,16 @@ public class GroupData {
     return "GroupData{" +
             "id='" + id + '\'' +
             " name='" + name + '\'' +
-            ", header" + header + '\'' +
+            ", header='" + header + '\'' +
             ", footer='" + footer + '\'' +
-           // ", contacts='" + contacts + '\'' +
             '}';
   }
 
   public String getFooter() {
     return footer;
+  }
+  public ContactData getContactdata() {
+    return contactData;
   }
 
   public GroupData withId(int id) {
@@ -99,9 +104,9 @@ public class GroupData {
     return this;
   }
 
-  public GroupData withContacts(Contacts contacts){
-      this.contacts=contacts;
-      return this;
+  public GroupData withContactData(ContactData contactData) {
+    this.contactData = contactData;
+    return this;
   }
 
 
