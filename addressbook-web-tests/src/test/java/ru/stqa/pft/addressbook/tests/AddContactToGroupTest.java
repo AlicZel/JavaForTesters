@@ -49,7 +49,8 @@ public class AddContactToGroupTest extends TestBase {
     app.contact().addContactToGroup(contact,newGroup);
     Groups groupsAfter = app.db().groups();
     System.out.println(" groupsAfter " + groupsAfter);
-    GroupData newGroupWithContact = newGroup.withContacts(new Contacts().withAdded(contact));
+    ContactData newContactwithGroup = contact.withGroups(new Groups().withAdded(newGroup));
+    GroupData newGroupWithContact = newGroup.withContacts(new Contacts().withAdded(newContactwithGroup));
 
     List<GroupData> groupsAfterForSelectedContact=
             groupsAfter.stream().filter(g->g.getName().startsWith("test")).collect(Collectors.toList());

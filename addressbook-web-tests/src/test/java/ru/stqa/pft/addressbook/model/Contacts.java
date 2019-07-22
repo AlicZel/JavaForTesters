@@ -10,6 +10,7 @@ public class Contacts extends ForwardingSet<ContactData> {
 
   private Set<ContactData> delegate;
 
+
   public Contacts(Contacts contacts) {
     this.delegate=new HashSet<ContactData>(contacts.delegate);
   }
@@ -38,5 +39,12 @@ public class Contacts extends ForwardingSet<ContactData> {
     Contacts contacts = new Contacts(this);
     contacts.remove(contact);
     return  contacts;
+  }
+
+  @Override
+  public String toString() {
+    return "Contacts{" +
+            "delegate=" + delegate +
+            '}';
   }
 }

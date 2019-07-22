@@ -99,6 +99,7 @@ public class ContactData {
 @JoinTable(name="address_in_groups", joinColumns = @JoinColumn(name="id"),inverseJoinColumns = @JoinColumn(name=
         "group_id"))
 private Set<GroupData> groups = new HashSet<GroupData>();
+//private Groups groups = new Groups();
 
 
 //  @Column(name="photo")
@@ -421,6 +422,7 @@ private Set<GroupData> groups = new HashSet<GroupData>();
             ", secondAddress='" + secondAddress + '\'' +
             ", secondAddressPhone='" + secondAddressPhone + '\'' +
             ", notes='" + notes + '\'' +
+            ", groups='" + groups + '\'' +
             '}';
   }
 

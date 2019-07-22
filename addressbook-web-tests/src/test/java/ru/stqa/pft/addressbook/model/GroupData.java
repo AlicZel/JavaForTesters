@@ -29,7 +29,8 @@ public class GroupData {
   @Type(type="text")
   private  String footer;
   @ManyToMany(mappedBy = "groups",fetch= FetchType.EAGER)
-  private Set<ContactData> contacts = new HashSet<ContactData>();
+ private Set<ContactData> contacts = new HashSet<ContactData>();
+  //private Contacts contacts = new Contacts();
 
     @Override
   public boolean equals(Object o) {
@@ -67,8 +68,8 @@ public class GroupData {
   @Override
   public String toString() {
     return "GroupData{" +
-            "id='" + id + '\'' +
-            ", name='" + name + '\'' +
+            //"id='" + id + '\'' +
+            " name='" + name + '\'' +
             ", header" + header + '\'' +
             ", footer='" + footer + '\'' +
             ", contacts='" + contacts + '\'' +
