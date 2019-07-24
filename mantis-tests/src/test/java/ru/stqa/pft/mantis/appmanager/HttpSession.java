@@ -33,7 +33,7 @@ public class HttpSession {
     params.add(new BasicNameValuePair("return","index.php"));
     CloseableHttpResponse response=httpClient.execute(post);
     String body = geTextFrom(response);
-    return body.contains(String.format("<span class=\"italic\">%s<span>",username));
+    return body.contains(String.format("<span class=\"italic\">%s</span>",username));
   }
 
   private String geTextFrom(CloseableHttpResponse response) throws IOException{
@@ -49,7 +49,7 @@ public class HttpSession {
     HttpGet get=new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
     CloseableHttpResponse response = httpClient.execute(get);
     String body =geTextFrom(response);
-    return body.contains(String.format("<span class=\"italic\">%s<span>",username));
+    return body.contains(String.format("<span class=\"italic\">%s</span>",username));
   }
 
 }
