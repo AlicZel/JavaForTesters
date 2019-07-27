@@ -17,7 +17,11 @@ public class ApplicationManager {
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
-
+  private DbHelper dbHelper;
+  private PasswordResetHelper passwordResetHelper;
+  private SessionHelper sessionHelper;
+  private NavigationHelper navigationHelper;
+  private ManageUsersHelper manageUsersHelper;
 
 
   private String browser;
@@ -82,6 +86,38 @@ public class ApplicationManager {
       mailHelper=new MailHelper(this);
     }
     return mailHelper;
+  }
+
+  public DbHelper db() {
+    if(dbHelper==null){
+      dbHelper=new DbHelper(this);
+    }
+    return dbHelper;
+  }
+
+  public PasswordResetHelper passwordReset() {
+    if(passwordResetHelper==null){
+      passwordResetHelper=new PasswordResetHelper(this);
+    }return passwordResetHelper;
+
+  }
+
+  public SessionHelper session(){
+    if(sessionHelper==null){
+      sessionHelper=new SessionHelper(this);
+    }return sessionHelper;
+  }
+
+  public NavigationHelper goTo(){
+    if(navigationHelper==null){
+      navigationHelper=new NavigationHelper(this);
+    }return navigationHelper;
+  }
+
+  public ManageUsersHelper manageUsers(){
+    if(manageUsersHelper==null){
+      manageUsersHelper=new ManageUsersHelper(this);
+    }return manageUsersHelper;
   }
 
 }
