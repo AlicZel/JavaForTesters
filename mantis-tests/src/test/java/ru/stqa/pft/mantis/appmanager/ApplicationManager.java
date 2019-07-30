@@ -22,7 +22,8 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private ManageUsersHelper manageUsersHelper;
-
+  private JamesHelper jamesHelper;
+  private SoapHelper soapHelper;
 
   private String browser;
 
@@ -118,6 +119,19 @@ public class ApplicationManager {
     if(manageUsersHelper==null){
       manageUsersHelper=new ManageUsersHelper(this);
     }return manageUsersHelper;
+  }
+
+  public JamesHelper james(){
+
+    if(jamesHelper==null){
+      jamesHelper= new JamesHelper(this);
+    } return jamesHelper;
+  }
+
+  public SoapHelper soup(){
+    if(soapHelper==null){
+      soapHelper= new SoapHelper(this);
+    } return soapHelper;
   }
 
 }

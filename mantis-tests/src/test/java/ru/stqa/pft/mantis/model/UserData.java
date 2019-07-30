@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@XStreamAlias("contact")
+@XStreamAlias("user")
 @Entity
 @Table(name= "mantis_user_table")
 public class UserData {
