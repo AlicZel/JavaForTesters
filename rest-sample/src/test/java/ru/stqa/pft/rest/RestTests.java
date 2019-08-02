@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Set;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
 import org.apache.http.message.BasicNameValuePair;
 import org.testng.annotations.*;
 import static org.testng.Assert.assertEquals;
@@ -17,21 +18,24 @@ public class RestTests {
 
     @Test
     public void testCreateIssue() throws IOException {
-      Set<Issue> oldIssues = getIssues();
-      Issue newIssue =  new Issue().withSubject("Test issue 1").withDescription("new test issue 1");
-      Integer issueId= createIssue(newIssue);
+    //  Set<Issue> oldIssues = getIssues();
+    //  Issue newIssue =  new Issue().withSubject("Test issue 2").withDescription("new test issue 2");
+    //  Integer issueId=
+         createIssue();
       Set<Issue> newIssues = getIssues();
-      oldIssues.add(newIssue.withId(issueId));
-      assertEquals(newIssues,oldIssues);
+     // oldIssues.add(newIssue.withId(issueId));
+     // assertEquals(newIssues,oldIssues);
     }
 
-    private Integer createIssue(Issue newIssue) throws IOException {
-      String json=getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json")
-      .bodyForm(new BasicNameValuePair("subject",newIssue.getSubject()),
-              new BasicNameValuePair("description",newIssue.getDescription()) ))
-              .returnContent().asString();
-      JsonElement parsed = new JsonParser().parse(json);
-      return parsed.getAsJsonObject().get("issue_id").getAsInt();
+    private Response createIssue() throws IOException {
+     // String json=getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json")
+       Response json =getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json"));
+        return json;
+   //   .bodyForm(new BasicNameValuePair("subject",newIssue.getSubject()),
+      //        new BasicNameValuePair("description",newIssue.getDescription()) ))
+      //        .returnContent().asString();
+    //  JsonElement parsed = new JsonParser().parse(json);
+   //   return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 
     private Set<Issue> getIssues() throws IOException {
