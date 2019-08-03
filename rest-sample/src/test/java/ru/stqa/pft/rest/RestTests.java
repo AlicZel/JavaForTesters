@@ -1,23 +1,20 @@
 package ru.stqa.pft.rest;
 
-import java.io.IOException;
-import java.util.Set;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
-import static com.sun.javafx.runtime.async.BackgroundExecutor.getExecutor;
-import static org.testng.Assert.assertEquals;
+import java.io.IOException;
+import java.util.Set;
+
+
 
 public class RestTests {
+
 
   @Test
   public void testCreateIssue() throws IOException {
@@ -51,8 +48,12 @@ public class RestTests {
     return new Gson().fromJson(issues,new TypeToken<Set<Issue>>(){}.getType());
   }
 
-  public Executor getExecutor() {
-    return Executor.newInstance().auth("25c6b66f028c417c8ade51cfd2c906e9","");
-  }
+
+
+    public Executor getExecutor() {
+      return Executor.newInstance()
+              .auth("f060103b7877858acb33f95ace052441","");
+    }
+
 
 }
