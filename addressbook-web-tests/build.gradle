@@ -23,10 +23,10 @@ task testGroups(type: Test){
         systemProperty 'browser',"${browser}"}
 
     if(projects.hasProperty("target")){
-        systemProperty 'target',"${browser}"}
+        systemProperty 'target',"${target}"}
 
     if(projects.hasProperty("verifyUI")){
-        systemProperty 'target',"${verifyUI}"}
+        systemProperty 'verifyUI',"${verifyUI}"}
 }
 
 
