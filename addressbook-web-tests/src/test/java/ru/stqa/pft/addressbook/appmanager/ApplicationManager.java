@@ -39,14 +39,17 @@ public class ApplicationManager {
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties",target))));
     dbHelper= new DbHelper();
 
-    if("".equals(properties.getProperty("selenium.server"))){
+    if("".equals(properties.getProperty("selenium.server")))
+    {
     if(browser.equals(BrowserType.FIREFOX)) {wd = new FirefoxDriver();}
         else if (browser.equals(BrowserType.CHROME))
     {
     wd= new ChromeDriver();
-    } else if(browser.equals(BrowserType.IE)){
+    }
+        else if(browser.equals(BrowserType.IE)){
           wd= new InternetExplorerDriver();
-    }}else
+    }
+    }else
     {
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
